@@ -1,7 +1,5 @@
 package fengfei.studio.algorithm.stringmatch;
 
-import java.util.*;
-
 public class RabinKarp {
     /**
      * Rabin、Karp一起发明的算法，思想是利用hash对比模式串与主串的所有可能子串，时间复杂度O(n)，极端hash冲突时退化为O(m*n)
@@ -34,7 +32,6 @@ public class RabinKarp {
             }else{
                 h[i] = (h[i-1] - text.charAt(i-1) * ratio[targetLength-1]) * 31 + text.charAt(i+targetLength-1);
             }
-
             //h[i] = text.substring(i, i+targetLength).hashCode();
         }
 
