@@ -37,6 +37,12 @@ public class MatchTest {
         System.out.println(System.currentTimeMillis() - start);
     }
 
+    @Test
+    public void testBMPerformance(){
+        int index = BoyerMoore.find("abcdabde", "abd");
+        assert(index == 4);
+    }
+
 
     private String[] generateText(int testCount) {
         String text = "对于一个在北平住惯的人，像我，冬天要是不刮风，便觉得是奇迹；济南的冬天是没有风声的。对于一个刚由伦敦回来的人，像我，冬天要能看得见日光，便觉得是怪事；济南的冬天是响晴的。自然，在热带的地方，日光是永远那么毒，响亮的天气，反有点叫人害怕。可是，在北中国的冬天，而能有温晴的天气，济南真得算个宝地。" +

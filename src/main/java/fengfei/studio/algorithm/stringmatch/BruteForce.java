@@ -1,13 +1,13 @@
 package fengfei.studio.algorithm.stringmatch;
 
-public class BruteForce {
+class BruteForce {
     /**
      * 暴力查找，时间复杂度O(m*n)，实际使用时间复杂度接近O(n)
      * @param text  目标字符串
      * @param target    模式串
      * @return  模式串在目标串中首次匹配的位置，没有匹配返回-1
      */
-    public static int find(String text, String target){
+    static int find(String text, String target){
         int end = text.length() - target.length();
         for (int i=0; i<end; i++){
             char firstTargetChar = target.charAt(0);

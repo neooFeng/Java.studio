@@ -1,24 +1,14 @@
 package fengfei.studio.algorithm.stringmatch;
 
-public class RabinKarp {
+class RabinKarp {
     /**
-     * Rabin、Karp一起发明的算法，思想是利用hash对比模式串与主串的所有可能子串，时间复杂度O(n)，极端hash冲突时退化为O(m*n)
-     * @param text
-     * @param target
-     * @return
+     * Rabin、Karp一起发明的算法，思想是利用hash对比模式串与主串的所有可能子串，时间复杂度O(n)，实际使用取决于HASH算法的效率，可能退化为O(m*n)
+     * @param text  目标字符串
+     * @param target    模式串
+     * @return  模式串在目标串中首次匹配的位置，没有匹配返回-1
      */
-    private final static int[] ratio = new int[30];
-    static {
-        ratio[0] = 1;
-        int i=1;
-        while (i < ratio.length){
-            ratio[i] = ratio[i-1] * 31;
-            i++;
-        }
-    }
-
-    public static int find(String text, String target){
-        // 为主串的所有可能子串计算hash，hash算法的效率是关键，不然又退化会O(m*n)
+    static int find(String text, String target){
+        // 为主串的所有可能子串计算hash，hash算法的效率很关键
         int targetLength = target.length();
         int textLength = text.length();
         int[] h = new int[textLength-targetLength+1];
@@ -32,6 +22,8 @@ public class RabinKarp {
             }else{
                 h[i] = (h[i-1] - text.charAt(i-1) * ratio[targetLength-1]) * 31 + text.charAt(i+targetLength-1);
             }
+
+            // 这种算法比较低效
             //h[i] = text.substring(i, i+targetLength).hashCode();
         }
 
@@ -44,5 +36,15 @@ public class RabinKarp {
         }
 
         return -1;
+    }
+
+    private final static int[] ratio = new int[30];
+    static {
+        ratio[0] = 1;
+        int i=1;
+        while (i < ratio.length){
+            ratio[i] = ratio[i-1] * 31;
+            i++;
+        }
     }
 }
