@@ -13,35 +13,43 @@ import static org.junit.Assert.assertTrue;
 public class MatchTest {
     @Test
     public void testBFPerformance(){
-        int testCount = 10000;
+        int testCount = 100;
         String[] sources = generateText(testCount);
 
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         for (int i=0; i<testCount; i++){
-            BruteForce.find(sources[i], "把终年贮蓄的绿色全拿出来");
+            BruteForce.find(sources[i], "一圈小山在冬天特别可爱");
         }
-        System.out.println(System.currentTimeMillis() - start);
+        System.out.println(System.nanoTime() - start);
     }
 
     @Test
     public void testRKPerformance() {
         RabinKarp.find("为了初始化一些static数据", "为了初");
 
-        int testCount = 10000;
+        int testCount = 100;
         String[] sources = generateText(testCount);
 
-        long start = System.currentTimeMillis();
+        long start = System.nanoTime();
         for (int i=0; i<testCount; i++){
-            RabinKarp.find(sources[i], "把终年贮蓄的绿色全拿出来");
+            RabinKarp.find(sources[i], "一圈小山在冬天特别可爱");
         }
-        System.out.println(System.currentTimeMillis() - start);
+        System.out.println(System.nanoTime() - start);
     }
 
     @Test
     public void testBMPerformance(){
-        int index = BoyerMoore.find("abcdabde", "abd");
-        assert(index == 4);
+        int testCount = 100;
+        String[] sources = generateText(testCount);
+
+        long start = System.nanoTime();
+        for (int i=0; i<testCount; i++){
+            BoyerMoore.find(sources[i], "一圈小山在冬天特别可爱");
+        }
+        System.out.println(System.nanoTime() - start);
     }
+
+
 
 
     private String[] generateText(int testCount) {
@@ -58,6 +66,22 @@ public class MatchTest {
             StringBuilder sb = new StringBuilder();
             while (wordNum < 2000){
                 sb.append(text.charAt((int)(Math.random() * text.length())));
+                wordNum++;
+            }
+            result[i] = sb.toString();
+        }
+
+        return result;
+    }
+
+    private String[] generateEnText(int testCount) {
+        char[] chars = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p','q','r', 's', 't'};
+        String[] result = new String[testCount];
+        for (int i=0; i<testCount; i++){
+            int wordNum = 0;
+            StringBuilder sb = new StringBuilder();
+            while (wordNum < 2000){
+                sb.append(chars[(int)(Math.random() * chars.length)]);
                 wordNum++;
             }
             result[i] = sb.toString();
