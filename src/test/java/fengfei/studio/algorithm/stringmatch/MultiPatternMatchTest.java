@@ -8,7 +8,7 @@ public class MultiPatternMatchTest {
     final int patternCount = 10000;
 
     @Test
-    public void MultiBF(){
+    public void testMultiBF(){
         String[] sources = TextGenerator.genChinese(loopCount, textLength);
         String[] targets = TextGenerator.getTargetPatterns(patternCount);
 

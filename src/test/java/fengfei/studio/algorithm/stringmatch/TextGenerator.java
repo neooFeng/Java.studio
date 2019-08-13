@@ -1,7 +1,5 @@
 package fengfei.studio.algorithm.stringmatch;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.HashSet;
 import java.util.Set;
 
