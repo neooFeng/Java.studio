@@ -4,17 +4,18 @@ import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.URI;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IMClientRunable implements Runnable {
     private final static Logger logger = LoggerFactory.getLogger(IMClientRunable.class);
 
+    private long stopTime;
     private Configuration config;
     private AtomicInteger sendCounter;
-    public IMClientRunable(AtomicInteger sendCounter, Configuration config){
+    public IMClientRunable(long stopTime, AtomicInteger sendCounter, Configuration config){
+        this.stopTime = stopTime;
         this.sendCounter = sendCounter;
         this.config = config;
     }
@@ -28,9 +29,13 @@ public class IMClientRunable implements Runnable {
             enterChatRoom(clientEndPoint);
 
             long sendMessageInterval = this.config.getLong("sendMessageInterval");
-            while (true){
+            while (System.currentTimeMillis() < stopTime){
                 Thread.sleep(sendMessageInterval);
                 sendMessage(clientEndPoint, "msg-001");
+            }
+
+            if (this.config.getBoolean("keepAlive")){
+                Thread.sleep(180 * 1000);
             }
         } catch (Exception e) {
             logger.error("", e);
@@ -50,19 +55,15 @@ public class IMClientRunable implements Runnable {
     }
 
     private void sendText(WebsocketClientEndpoint clientEndPoint, String text) {
-        Future<Void> future = clientEndPoint.sendMessageAsync(text);
         try {
-            future.get();
-        } catch (InterruptedException e) {
+            clientEndPoint.sendMessage(text);
+            if (text.contains("MESSAGE")){
+                logger.debug("Thread: " + Thread.currentThread().getId() + ", send: " + this.sendCounter.incrementAndGet());
+            }else {
+                logger.debug("Thread: " + Thread.currentThread().getId() + " presence.");
+            }
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        if (text.contains("MESSAGE")){
-            logger.debug("Thread: " + Thread.currentThread().getId() + ", send: " + this.sendCounter.incrementAndGet());
-        }else {
-            logger.debug("Thread: " + Thread.currentThread().getId() + " presence.");
         }
     }
 

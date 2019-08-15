@@ -28,8 +28,11 @@ public class IMTest{
 
         final AtomicInteger sendCounter = new AtomicInteger(0);
 
+        long pushDurationMs = config.getLong("pushDurationMs");
+        long stopTime = System.currentTimeMillis() + pushDurationMs;
+
         for (int i=0; i<threadCount; i++){
-            Thread t = new Thread(new IMClientRunable(sendCounter, config));
+            Thread t = new Thread(new IMClientRunable(stopTime, sendCounter, config));
             t.start();
 
             threads[i] = t;
