@@ -1,4 +1,4 @@
-package fengfei.studio.websocket;
+package fengfei.studio.net.websocket;
 
 import java.io.EOFException;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package fengfei.studio.websocket;
+package fengfei.studio.net.websocket;
 
 import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
