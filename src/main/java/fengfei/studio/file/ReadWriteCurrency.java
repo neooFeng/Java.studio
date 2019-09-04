@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class ReadWriteCurrency {
     final static String filename = "/Users/teacher/a.txt";
@@ -13,6 +14,8 @@ public class ReadWriteCurrency {
         Thread writeThread = new Thread(new WriteRunable(filename));
 
         System.out.println("start");
+
+        LinkedBlockingQueue
 
         readThread.start();
         writeThread.start();
