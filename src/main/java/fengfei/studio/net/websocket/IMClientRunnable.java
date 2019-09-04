@@ -23,7 +23,8 @@ public class IMClientRunnable implements Runnable {
         this.config = config;
     }
 
-    public IMClientRunnable() {
+    public IMClientRunnable(Configuration config) {
+        this.config = config;
     }
 
     @Override
@@ -42,14 +43,16 @@ public class IMClientRunnable implements Runnable {
             enterChatRoom(clientEndPoint);
 
             if (isSender){
-                Thread.sleep(RandomUtils.nextInt(1000));
+                int sendMessageIntervalMs = this.config.getInt("sendMessageIntervalMs");
+                Thread.sleep(RandomUtils.nextInt(sendMessageIntervalMs));
 
-                long sendMessageIntervalMs = this.config.getLong("sendMessageIntervalMs");
                 while (true){
                     sendMessage(clientEndPoint, "msg-001");
                     Thread.sleep(sendMessageIntervalMs);
                 }
             }
+
+            Thread.sleep(3600 * 1000);
         } catch (Exception e) {
             logger.error("", e);
         }

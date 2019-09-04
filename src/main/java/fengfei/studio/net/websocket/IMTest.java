@@ -24,7 +24,6 @@ public class IMTest{
     public static void main(String[] args){
         final AtomicInteger sendCounter = new AtomicInteger(0);
 
-        long enterIntervalMs = config.getLong("enterIntervalMs");
         int senderCount = config.getInt("senderCount");
 
         // add sender
@@ -33,10 +32,11 @@ public class IMTest{
         }
 
         // add more member
+        long enterIntervalMs = config.getLong("enterIntervalMs");
         int memberCount = config.getInt("memberCount");
         Thread[] threads = new Thread[memberCount];
         for (int i=0; i<memberCount; i++){
-            Thread t = new Thread(new IMClientRunnable());
+            Thread t = new Thread(new IMClientRunnable(config));
             t.start();
 
             threads[i] = t;

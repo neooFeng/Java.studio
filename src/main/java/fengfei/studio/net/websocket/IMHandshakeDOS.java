@@ -42,7 +42,7 @@ public class IMHandshakeDOS {
             boolean connSuccess = false;
             while (!connSuccess){
                 try {
-                    new WebsocketClientEndpoint(new URI(config.getString("dosConnectStr1")));
+                    new WebsocketClientEndpoint(new URI(config.getString("dosConnectStr2")));
                     connSuccess = true;
                 } catch (Exception e) {
                     logger.error("", e);

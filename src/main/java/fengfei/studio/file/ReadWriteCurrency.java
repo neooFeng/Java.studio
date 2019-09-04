@@ -15,8 +15,6 @@ public class ReadWriteCurrency {
 
         System.out.println("start");
 
-        LinkedBlockingQueue
-
         readThread.start();
         writeThread.start();
 
