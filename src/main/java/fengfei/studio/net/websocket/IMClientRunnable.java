@@ -1,41 +1,54 @@
-package fengfei.studio.websocket;
+package fengfei.studio.net.websocket;
 
 import org.apache.commons.configuration.Configuration;
+import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class IMClientRunable implements Runnable {
-    private final static Logger logger = LoggerFactory.getLogger(IMClientRunable.class);
+public class IMClientRunnable implements Runnable {
+    private final static Logger logger = LoggerFactory.getLogger(IMClientRunnable.class);
 
-    private long stopTime;
     private Configuration config;
     private AtomicInteger sendCounter;
-    public IMClientRunable(long stopTime, AtomicInteger sendCounter, Configuration config){
-        this.stopTime = stopTime;
+    private boolean isSender;
+
+    public IMClientRunnable(AtomicInteger sendCounter, Configuration config){
+        this.isSender = true;
         this.sendCounter = sendCounter;
         this.config = config;
     }
-    
+
+    public IMClientRunnable() {
+    }
+
     @Override
     public void run() {
         final WebsocketClientEndpoint clientEndPoint;
         try {
             clientEndPoint = new WebsocketClientEndpoint(new URI(this.config.getString("connectStr")));
 
+            /*clientEndPoint.addMessageHandler(new WebsocketClientEndpoint.MessageHandler() {
+                @Override
+                public void handleMessage(String message) {
+                    logger.error("recv: " + message);
+                }
+            });*/
+
             enterChatRoom(clientEndPoint);
 
-            long sendMessageInterval = this.config.getLong("sendMessageInterval");
-            while (System.currentTimeMillis() < stopTime){
-                Thread.sleep(sendMessageInterval);
-                sendMessage(clientEndPoint, "msg-001");
-            }
+            if (isSender){
+                Thread.sleep(RandomUtils.nextInt(1000));
 
-            if (this.config.getBoolean("keepAlive")){
-                Thread.sleep(180 * 1000);
+                long sendMessageIntervalMs = this.config.getLong("sendMessageIntervalMs");
+                while (true){
+                    sendMessage(clientEndPoint, "msg-001");
+                    Thread.sleep(sendMessageIntervalMs);
+                }
             }
         } catch (Exception e) {
             logger.error("", e);
@@ -66,6 +79,4 @@ public class IMClientRunable implements Runnable {
             e.printStackTrace();
         }
     }
-
-
 }

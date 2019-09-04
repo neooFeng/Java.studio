@@ -1,4 +1,4 @@
-package fengfei.studio.websocket;
+package fengfei.studio.net.websocket;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
@@ -11,47 +11,51 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class IMTest{
     private final static Logger logger = LoggerFactory.getLogger(IMTest.class);
 
-    private static int threadCount;
     private static Configuration config;
 
     static {
         try {
             config = new PropertiesConfiguration("config.properties");
-            threadCount = config.getInt("threadCount");
         } catch (ConfigurationException e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args){
-        Thread[] threads = new Thread[threadCount];
-
         final AtomicInteger sendCounter = new AtomicInteger(0);
 
-        long pushDurationMs = config.getLong("pushDurationMs");
-        long stopTime = System.currentTimeMillis() + pushDurationMs;
+        long enterIntervalMs = config.getLong("enterIntervalMs");
+        int senderCount = config.getInt("senderCount");
 
-        for (int i=0; i<threadCount; i++){
-            Thread t = new Thread(new IMClientRunable(stopTime, sendCounter, config));
+        // add sender
+        for (int i=0; i<senderCount; i++){
+            new Thread(new IMClientRunnable(sendCounter, config)).start();
+        }
+
+        // add more member
+        int memberCount = config.getInt("memberCount");
+        Thread[] threads = new Thread[memberCount];
+        for (int i=0; i<memberCount; i++){
+            Thread t = new Thread(new IMClientRunnable());
             t.start();
 
             threads[i] = t;
 
             try {
-                Thread.sleep(888);
+                Thread.sleep(enterIntervalMs);
             } catch (InterruptedException e) {
                 logger.error("", e);
             }
         }
 
-        for (int i=0; i<threadCount; i++){
+        for (int i=0; i<memberCount; i++){
             try {
                 threads[i].join();
             } catch (InterruptedException e) {
-                logger.error("", e);
+                e.printStackTrace();
             }
         }
 
-        System.out.println("can't arrive");
+        System.out.println("done.");
     }
 }
