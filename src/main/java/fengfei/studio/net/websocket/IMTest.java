@@ -22,11 +22,9 @@ public class IMTest{
     }
 
     public static void main(String[] args){
-        final AtomicInteger sendCounter = new AtomicInteger(0);
-
-        int senderCount = config.getInt("senderCount");
-
         // add sender
+        final AtomicInteger sendCounter = new AtomicInteger(0);
+        int senderCount = config.getInt("senderCount");
         for (int i=0; i<senderCount; i++){
             new Thread(new IMClientRunnable(sendCounter, config)).start();
         }
@@ -56,6 +54,6 @@ public class IMTest{
             }
         }
 
-        System.out.println("done.");
+        System.out.println("done..");
     }
 }

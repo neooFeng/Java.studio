@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IMClientRunnable implements Runnable {

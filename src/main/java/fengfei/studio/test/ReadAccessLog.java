@@ -1,7 +1,5 @@
 package fengfei.studio.test;
 
-import ch.qos.logback.core.util.StringCollectionUtil;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,16 +12,20 @@ public class ReadAccessLog {
 
     private final static String logPath = "C:\\Users\\fengfei\\Documents\\imsocket.access.txt";
     static Map<String, Integer> requestCountPerMin = new HashMap<>();
+    static Map<String, Integer> requestCountPerSec = new HashMap<>();
+    static Map<String, Integer> requestCountPerUser = new HashMap<>();
+    static List<LogLineInfo> orderedLogs = new ArrayList<>();
+    static int totalRequestCount = 0;
     static Set<String> distinctRequestToken = new HashSet<>();
 
     public static void main(String[] args){
         parseLogFile();
 
-        printResult();
+        printResult(requestCountPerUser);
     }
 
     private static void parseLogFile() {
-        String thisLine = null;
+        String thisLine;
 
         try (BufferedReader br = new BufferedReader(new FileReader(logPath))) {
             while ((thisLine = br.readLine()) != null) {
@@ -38,20 +40,37 @@ public class ReadAccessLog {
                 lineInfo.setIp(matcher.group(1));
                 lineInfo.setTime(matcher.group(4));
                 lineInfo.setTimeInMin(lineInfo.getTime().substring(0, "01/Sep/2019:02:01".length()));
-
                 lineInfo.setRequest(matcher.group(5));
+
+                if(!timeOk(lineInfo.getTimeInMin())){
+                    continue;
+                }
 
                 int start = lineInfo.getRequest().indexOf("token=");
                 int end = lineInfo.getRequest().lastIndexOf(" ");
                 if (start > -1 && end > start){
                     lineInfo.setParamUserToken(lineInfo.getRequest().substring(start, end));
-                }
 
-                requestCountPerMin.put(lineInfo.getTimeInMin(), requestCountPerMin.getOrDefault(lineInfo.getTimeInMin(), 0) + 1);
-                if(lineInfo.getParamUserToken() != null && timeOk(lineInfo.getTimeInMin())){
+                    orderedLogs.add(lineInfo);
+                    requestCountPerUser.put(lineInfo.getParamUserToken(), requestCountPerUser.getOrDefault(lineInfo.getParamUserToken(), 0) + 1);
+                    requestCountPerMin.put(lineInfo.getTimeInMin(), requestCountPerMin.getOrDefault(lineInfo.getTimeInMin(), 0) + 1);
+                    requestCountPerSec.put(lineInfo.getTime(), requestCountPerSec.getOrDefault(lineInfo.getTime(), 0) + 1);
                     distinctRequestToken.add(lineInfo.getParamUserToken());
+                    totalRequestCount++;
                 }
             }
+
+            orderedLogs.sort(new Comparator<LogLineInfo>() {
+                @Override
+                public int compare(LogLineInfo o1, LogLineInfo o2) {
+                    if (o1.getParamUserToken().equals(o2.getParamUserToken())){
+                        return o1.getTime().compareTo(o2.getTime());
+                    }else{
+                        return o1.getParamUserToken().compareTo(o2.getParamUserToken());
+                    }
+                }
+            });
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -60,19 +79,25 @@ public class ReadAccessLog {
     }
 
     private static boolean timeOk(String timeInMin) {
-            return timeInMin.compareTo("01/Sep/2019:18:18") > 0
-                    && timeInMin.compareTo("01/Sep/2019:19:18") < 0;
+            return timeInMin.compareTo("01/Sep/2019:18:18:00") > 0
+                    && timeInMin.compareTo("01/Sep/2019:19:18:00") < 0;
     }
 
-    private static void printResult() {
+    private static void printResult(Map<String, Integer> requestCountMap) {
         List<String> keys = new ArrayList<>();
-        keys.addAll(requestCountPerMin.keySet());
+        keys.addAll(requestCountMap.keySet());
         Collections.sort(keys);
-        for (String minute : keys){
-            System.out.println(minute + ", " + requestCountPerMin.get(minute));
+        for (String key : keys){
+            System.out.println(key + ", " + requestCountMap.get(key));
         }
 
         System.out.println("User Count: " + distinctRequestToken.size());
+
+        System.out.println("Total Request Count: " + totalRequestCount);
+
+        for (LogLineInfo lineInfo : orderedLogs){
+            System.out.println(lineInfo.getParamUserToken().substring(lineInfo.getParamUserToken().length()-15) + " >> " + lineInfo.getTime());
+        }
     }
 
     static class LogLineInfo {

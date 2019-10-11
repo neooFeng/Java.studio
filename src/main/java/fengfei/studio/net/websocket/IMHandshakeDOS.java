@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,19 +18,21 @@ public class IMHandshakeDOS {
     private final static Logger logger = LoggerFactory.getLogger(IMHandshakeDOS.class);
 
     private static Configuration config;
+    private static URI uri;
 
     static {
         try {
             config = new PropertiesConfiguration("config.properties");
+            uri = new URI(config.getString("dosConnectStr2"));
         } catch (ConfigurationException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
-        final AtomicInteger sendCounter = new AtomicInteger(0);
-
-        for (int i=0; i<1; i++){
+        for (int i=0; i<30; i++){
            new Thread(new DOSRunable()).start();
         }
 
@@ -42,7 +45,7 @@ public class IMHandshakeDOS {
             boolean connSuccess = false;
             while (!connSuccess){
                 try {
-                    new WebsocketClientEndpoint(new URI(config.getString("dosConnectStr2")));
+                    new WebsocketClientEndpoint(uri);
                     connSuccess = true;
                 } catch (Exception e) {
                     logger.error("", e);
