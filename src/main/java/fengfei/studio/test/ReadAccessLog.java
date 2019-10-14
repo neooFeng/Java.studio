@@ -4,15 +4,19 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ReadAccessLog {
 
-    private final static String logPath = "C:\\Users\\fengfei\\Documents\\imsocket.access.txt";
+    private final static String logPath = "C:\\Users\\fengfei\\Documents\\imsocket.2019.10.11.txt";
     static Map<String, Integer> requestCountPerMin = new HashMap<>();
     static Map<String, Integer> requestCountPerSec = new HashMap<>();
+    static Map<Integer, Set<String>> requestDistinctUserPerMin = new HashMap<>();
     static Map<String, Integer> requestCountPerUser = new HashMap<>();
     static List<LogLineInfo> orderedLogs = new ArrayList<>();
     static int totalRequestCount = 0;
@@ -26,6 +30,9 @@ public class ReadAccessLog {
 
     private static void parseLogFile() {
         String thisLine;
+        Map<String, Integer> tempRequestCountPerUser = new HashMap<>();
+
+
 
         try (BufferedReader br = new BufferedReader(new FileReader(logPath))) {
             while ((thisLine = br.readLine()) != null) {
@@ -48,17 +55,26 @@ public class ReadAccessLog {
 
                 int start = lineInfo.getRequest().indexOf("token=");
                 int end = lineInfo.getRequest().lastIndexOf(" ");
-                if (start > -1 && end > start){
+                if (start > -1 && end > start && end-start > 20){
                     lineInfo.setParamUserToken(lineInfo.getRequest().substring(start, end));
 
                     orderedLogs.add(lineInfo);
-                    requestCountPerUser.put(lineInfo.getParamUserToken(), requestCountPerUser.getOrDefault(lineInfo.getParamUserToken(), 0) + 1);
+                    tempRequestCountPerUser.put(lineInfo.getParamUserToken(), tempRequestCountPerUser.getOrDefault(lineInfo.getParamUserToken(), 0) + 1);
                     requestCountPerMin.put(lineInfo.getTimeInMin(), requestCountPerMin.getOrDefault(lineInfo.getTimeInMin(), 0) + 1);
                     requestCountPerSec.put(lineInfo.getTime(), requestCountPerSec.getOrDefault(lineInfo.getTime(), 0) + 1);
+
+                    Integer timeSection = getTimeSection(lineInfo.getTime());
+                    if (!requestDistinctUserPerMin.containsKey(timeSection)){
+                        requestDistinctUserPerMin.put(timeSection, new HashSet<>());
+                    }
+                    requestDistinctUserPerMin.get(timeSection).add(lineInfo.getParamUserToken());
+
                     distinctRequestToken.add(lineInfo.getParamUserToken());
                     totalRequestCount++;
                 }
             }
+
+            requestCountPerUser = sortByValue(tempRequestCountPerUser);
 
             orderedLogs.sort(new Comparator<LogLineInfo>() {
                 @Override
@@ -78,26 +94,61 @@ public class ReadAccessLog {
         }
     }
 
+    public static Map sortByValue(Map unsortedMap) {
+        Map sortedMap = new TreeMap(new ValueComparator(unsortedMap));
+        sortedMap.putAll(unsortedMap);
+        return sortedMap;
+    }
+
+    static class ValueComparator implements Comparator {
+        Map map;
+
+        public ValueComparator(Map map) {
+            this.map = map;
+        }
+
+        public int compare(Object keyA, Object keyB) {
+            Comparable valueA = (Comparable) map.get(keyA);
+            Comparable valueB = (Comparable) map.get(keyB);
+            return valueB.compareTo(valueA);
+        }
+    }
+
+    private static Integer getTimeSection(String timeInMin) {
+        int hour = Integer.valueOf(timeInMin.substring("11/Oct/2019:".length(), "11/Oct/2019:".length() +2));
+        int min = Integer.valueOf(timeInMin.substring("11/Oct/2019:00:".length(), "11/Oct/2019:00:".length() +2));
+
+        int value = (hour-19) * 60 + min-25;
+
+        return value / 5 +1;
+    }
+
     private static boolean timeOk(String timeInMin) {
-            return timeInMin.compareTo("01/Sep/2019:18:18:00") > 0
-                    && timeInMin.compareTo("01/Sep/2019:19:18:00") < 0;
+            return timeInMin.compareTo("11/Oct/2019:19:25:00") > 0
+                    && timeInMin.compareTo("11/Oct/2019:20:39:00") < 0;
     }
 
     private static void printResult(Map<String, Integer> requestCountMap) {
         List<String> keys = new ArrayList<>();
         keys.addAll(requestCountMap.keySet());
-        Collections.sort(keys);
         for (String key : keys){
             System.out.println(key + ", " + requestCountMap.get(key));
+        }
+
+        List<Integer> keys2 = new ArrayList<>();
+        keys2.addAll(requestDistinctUserPerMin.keySet());
+        Collections.sort(keys2);
+        for (Integer key : keys2){
+            System.out.println("第" + key + "个5分钟,  " + requestDistinctUserPerMin.get(key).size());
         }
 
         System.out.println("User Count: " + distinctRequestToken.size());
 
         System.out.println("Total Request Count: " + totalRequestCount);
 
-        for (LogLineInfo lineInfo : orderedLogs){
+        /*for (LogLineInfo lineInfo : orderedLogs){
             System.out.println(lineInfo.getParamUserToken().substring(lineInfo.getParamUserToken().length()-15) + " >> " + lineInfo.getTime());
-        }
+        }*/
     }
 
     static class LogLineInfo {
