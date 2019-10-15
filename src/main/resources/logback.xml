@@ -18,11 +18,7 @@
         </layout>
     </appender>
     <logger name="fengfei.studio">
-        <level value="DEBUG" />
-        <appender-ref ref="STDOUT" />
-    </logger>
-    <logger name="org">
-        <level value="ERROR" />
+        <level value="INFO" />
         <appender-ref ref="STDOUT" />
     </logger>
     <logger name="com">

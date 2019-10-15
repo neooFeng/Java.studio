@@ -34,7 +34,7 @@ public class IMTest{
         int memberCount = config.getInt("memberCount");
         Thread[] threads = new Thread[memberCount];
         for (int i=0; i<memberCount; i++){
-            Thread t = new Thread(new IMClientRunnable(config));
+            Thread t = new Thread(new OKHttpClientRunnable(config));
             t.start();
 
             threads[i] = t;
@@ -45,6 +45,8 @@ public class IMTest{
                 logger.error("", e);
             }
         }
+
+        System.out.println("allin.");
 
         for (int i=0; i<memberCount; i++){
             try {
