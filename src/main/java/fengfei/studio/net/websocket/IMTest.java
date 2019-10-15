@@ -30,14 +30,10 @@ public class IMTest{
         }
 
         // add more member
-        long enterIntervalMs = config.getLong("enterIntervalMs");
-        int memberCount = config.getInt("memberCount");
-        Thread[] threads = new Thread[memberCount];
-        for (int i=0; i<memberCount; i++){
+        int enterIntervalMs = config.getInt("enterIntervalMs");
+        while (true){
             Thread t = new Thread(new OKHttpClientRunnable(config));
             t.start();
-
-            threads[i] = t;
 
             try {
                 Thread.sleep(enterIntervalMs);
@@ -45,17 +41,5 @@ public class IMTest{
                 logger.error("", e);
             }
         }
-
-        System.out.println("allin.");
-
-        for (int i=0; i<memberCount; i++){
-            try {
-                threads[i].join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        System.out.println("done..");
     }
 }

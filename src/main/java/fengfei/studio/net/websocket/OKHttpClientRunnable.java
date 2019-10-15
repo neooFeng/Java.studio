@@ -26,7 +26,7 @@ public class OKHttpClientRunnable implements Runnable {
         connect();
 
         try {
-            Thread.sleep(3600 * 1000);
+            Thread.sleep(config.getInt("stayRoomMs"));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -62,12 +62,6 @@ public class OKHttpClientRunnable implements Runnable {
             @Override
             public void onFailure(okhttp3.WebSocket webSocket, Throwable t, Response response) {
                 logger.error("failure: " + Thread.currentThread().getId());
-
-                try {
-                    sendMessage(webSocket, Thread.currentThread().getId() + " test send message when failed.");
-                }catch (Exception e){
-                    logger.error("sendMessage exception. ", e);
-                }
 
                 //logger.error("reconnect..");
                 //connect();
