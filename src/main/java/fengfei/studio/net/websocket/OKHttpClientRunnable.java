@@ -26,15 +26,18 @@ public class OKHttpClientRunnable implements Runnable {
         connect();
 
         try {
-            Thread.sleep(config.getInt("stayRoomMs"));
+            Thread.sleep(3600 * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void connect() {
+    private void connect() {
         String url = config.getString("connectStr");
-        Request request = new Request.Builder().url(url).build();
+        Request request = new Request.Builder().url(url)
+                .header("Upgrade", "websocket")
+                .header("Connection", "Upgrade")
+                .build();
 
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .connectTimeout(10, TimeUnit.SECONDS)
@@ -45,6 +48,7 @@ public class OKHttpClientRunnable implements Runnable {
         client.newWebSocket(request, new WebSocketListener() {
             @Override
             public void onOpen(okhttp3.WebSocket webSocket, Response response) {
+                logger.error("new connect");
                 enterChatRoom(webSocket);
             }
 
@@ -62,8 +66,8 @@ public class OKHttpClientRunnable implements Runnable {
             @Override
             public void onFailure(okhttp3.WebSocket webSocket, Throwable t, Response response) {
                 logger.error("failure: " + Thread.currentThread().getId());
+                t.printStackTrace();
 
-                //logger.error("reconnect..");
                 //connect();
             }
         });
