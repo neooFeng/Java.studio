@@ -4,16 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ReadAccessLog {
 
-    private final static String logPath = "C:\\Users\\fengfei\\Documents\\imsocket.access.txt";
+    private final static String logPath = "C:\\Users\\fengfei\\Documents\\imsocket.2019-10-31.txt";
     static Map<String, Integer> requestCountPerMin = new HashMap<>();
     static Map<String, Integer> requestCountPerSec = new HashMap<>();
     static Map<Integer, Set<String>> requestDistinctUserPerMin = new HashMap<>();
@@ -120,12 +117,12 @@ public class ReadAccessLog {
 
         int value = (hour-19) * 60 + min-25;
 
-        return value / 5 +1;
+        return value / 5;
     }
 
     private static boolean timeOk(String timeInMin) {
-            return timeInMin.compareTo("01/Sep/2019:18:55:00") > 0
-                    && timeInMin.compareTo("01/Sep/2019:19:15:00") < 0;
+            return timeInMin.compareTo("31/Oct/2019:19:29:00") > 0
+                    && timeInMin.compareTo("31/Oct/2019:20:33:55") < 0;
     }
 
     private static void printResult(Map<String, Integer> requestCountMap) {
