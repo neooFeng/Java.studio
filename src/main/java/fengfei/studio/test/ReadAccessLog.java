@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class ReadAccessLog {
 
-    private final static String logPath = "C:\\Users\\fengfei\\Documents\\imsocket.2019-10-31.txt";
+    private final static String logPath = "C:\\Users\\fengfei\\Documents\\imsocket.2019-12-05.txt";
     static Map<String, Integer> requestCountPerMin = new HashMap<>();
     static Map<String, Integer> requestCountPerSec = new HashMap<>();
     static Map<Integer, Set<String>> requestDistinctUserPerMin = new HashMap<>();
@@ -121,8 +121,8 @@ public class ReadAccessLog {
     }
 
     private static boolean timeOk(String timeInMin) {
-            return timeInMin.compareTo("31/Oct/2019:19:29:00") > 0
-                    && timeInMin.compareTo("31/Oct/2019:20:33:55") < 0;
+            return timeInMin.compareTo("05/Dec/2019:19:20:00") > 0
+                    && timeInMin.compareTo("05/Dec/2019:21:00:55") < 0;
     }
 
     private static void printResult(Map<String, Integer> requestCountMap) {
