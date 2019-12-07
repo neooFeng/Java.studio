@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class ReadAccessLog {
 
-    private final static String logPath = "C:\\Users\\fengfei\\Documents\\imsocket.access.txt";
+    private final static String logPath = "/Users/teacher/Downloads/imsocket.2019.10.11.txt";
     static Map<String, Integer> requestCountPerMin = new HashMap<>();
     static Map<String, Integer> requestCountPerSec = new HashMap<>();
     static Map<Integer, Set<String>> requestDistinctUserPerMin = new HashMap<>();
@@ -25,7 +25,7 @@ public class ReadAccessLog {
     public static void main(String[] args){
         parseLogFile();
 
-        printResult(requestCountPerUser);
+        printResult(requestCountPerSec);
     }
 
     private static void parseLogFile() {
@@ -124,13 +124,14 @@ public class ReadAccessLog {
     }
 
     private static boolean timeOk(String timeInMin) {
-            return timeInMin.compareTo("01/Sep/2019:18:55:00") > 0
-                    && timeInMin.compareTo("01/Sep/2019:19:15:00") < 0;
+            return timeInMin.compareTo("11/Oct/2019:19:25:00") > 0
+                    && timeInMin.compareTo("11/Oct/2019:20:38:00") < 0;
     }
 
     private static void printResult(Map<String, Integer> requestCountMap) {
         List<String> keys = new ArrayList<>();
         keys.addAll(requestCountMap.keySet());
+        Collections.sort(keys);
         for (String key : keys){
             System.out.println(key + ", " + requestCountMap.get(key));
         }
