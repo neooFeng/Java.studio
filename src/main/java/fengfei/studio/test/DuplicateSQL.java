@@ -24,122 +24,62 @@ public class DuplicateSQL {
         schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Academy, "qingshu_academy", "academy2", "gz_academy_2"));*/
 
 
-        /*schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_gllg", "201501交通工程", "gz_gllg_a"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_gllg", "201501软件测试", "gz_gllg_a"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_gllg", "201501市政工程技术", "gz_gllg_a"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_gllg", "201501土木工程", "gz_gllg_b"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_gllg", "201901土木工程", "gz_gllg_b"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_gllg", "201501物理光学", "gz_gllg_c"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_gllg", "201901物理光学", "gz_gllg_c"));*/
+        /*schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Academy, "qingshu_hpu", "A函授站", "gz_hpu_a"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Academy, "qingshu_hpu", "B函授站", "gz_hpu_b"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Academy, "qingshu_hpu", "C函授站", "gz_hpu_c"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Academy, "qingshu_hpu", "D函授站", "gz_hpu_d"));*/
 
+/*
 
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahdzxx", "安徽化工学校", "gz_aqzy_ahhg"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahdzxx", "怀宁县宜城科技学校", "gz_aqzy_hncykj"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahdzxx", "宿松县宿松中德职业技术学校", "gz_aqzy_sszd"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahdzxx", "太湖县太湖职业技术学院", "gz_aqzy_thzy"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahdzxx", "桐城市江淮工业学校", "gz_aqzy_tcjh"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahdzxx", "望江县皖江中等专业学校", "gz_aqzy_wjwj"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahdzxx", "校本部", "gz_aqzy_xy"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahdzxx", "岳西县大别山科技学校", "gz_aqzy_yxdbs"));
 
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "长丰党校", "gz_ahnd_cf"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "池阳", "gz_ahnd_cy"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "广德电大", "gz_ahnd_gddd"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "郭河", "gz_ahnd_gh"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "黄山职业学院", "gz_ahnd_hszy"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "校本部", "gz_ahnd_xy"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "宣城党校", "gz_ahnd_xcdx"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "岳西党校", "gz_ahnd_yxdx"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "泾县", "gz_ahnd_jx"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "旌德", "gz_ahnd_jd"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "砀山党校", "gz_ahnd_ysdx"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ahnd", "埇桥党校", "gz_ahnd_yqdx"));
 
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "万州-建经1班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "巫溪-建经2班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "巫溪-建经3班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-建经4班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "北碚-建筑10班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "北碚-建筑11班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "北碚-建筑12班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "九龙坡-建筑13班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-建筑14班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-建筑15班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-建筑16班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "万州-建筑17班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "巫溪-建筑18班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-建筑1班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-建筑2班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-建筑3班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "万州-建筑4班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "江北区-建筑5班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "江北区-建筑6班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "江北区-建筑7班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "江北区-建筑8班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "江北区-建筑9班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "渝中区-建筑智能1班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-建筑智能2班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-市政1班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "渝中区-市政2班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-市政3班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "万州-市政4班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "万州-市政5班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "巫溪-市政6班", "gz_cqdx_tmgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-通信1班", "gz_cqdx_tx"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-物联网1班", "gz_cqdx_tx"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "万州-物联网2班", "gz_cqdx_tx"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "巫溪-物联网3班", "gz_cqdx_tx"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "万州-新能源1班", "gz_cqdx_qczz"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-新能源2班", "gz_cqdx_qczz"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "九龙坡-机电1班", "gz_cqdx_qczz"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "九龙坡-市场营销1班", "gz_cqdx_swgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-市场营销2班", "gz_cqdx_swgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "电讯本部-市场营销3班", "gz_cqdx_swgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "万州-市场营销4班", "gz_cqdx_swgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cqdxxy", "巫溪-市场营销5班", "gz_cqdx_swgl"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_hudazx", "湖北大学知行学院", "gz_huda_zx"));
 
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Academy, "qingshu_qlg", "信息工程系", "gz_qlg_xxgc"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Academy, "qingshu_qlg", "公共服务系", "gz_qlg_ggfw"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Academy, "qingshu_qlg", "建筑工程系", "gz_qlg_jzgc"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Academy, "qingshu_qlg", "机电工程系", "gz_qlg_jdgc"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Academy, "qingshu_qlg", "经济管理系", "gz_qlg_jjgl"));
 
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_cyszgz", "朝阳师范高等专科学校", "gz_cysf_xy"));
 
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_bbjjzy", "蚌埠经济职业技术学院", "gz_bbjjzy"));
 
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_nyca", "牧医K191班", "gz_nyca_dwkx"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_nyca", "农技K193", "gz_nyca_nykx"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_nyca", "农技K192", "gz_nyca_nykx"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_nyca", "园艺K193", "gz_nyca_nykx"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_nyca", "汽检K191班", "gz_nyca_qcgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_nyca", "幼儿健康K191", "gz_nyca_rwys"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_nyca", "电商K191班", "gz_nyca_sxy"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_nyca", "金融K191班", "gz_nyca_sxy"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_nyca", "微机K191", "gz_nyca_xxgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_nyca", "微机K192", "gz_nyca_xxgc"));
-
-
-
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19房地产经营与管理", "gz_hnzy_gcgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19工程造价", "gz_hnzy_gcgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19建筑工程技术", "gz_hnzy_gcgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19建筑装饰工程技术", "gz_hnzy_gcgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19视觉传播设计与制作", "gz_hnzy_gcgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19物业管理", "gz_hnzy_gcgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19火电厂", "gz_hnzy_jdgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19机体3（社）", "gz_hnzy_jdgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19机体4（社）", "gz_hnzy_jdgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19机体5（社）", "gz_hnzy_jdgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19机体6（社）", "gz_hnzy_jdgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19矿山机电2（社）", "gz_hnzy_jdgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19矿山机电3（社）", "gz_hnzy_jdgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19汽修2（社）", "gz_hnzy_jdgc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19电子商务", "gz_hnzy_jjgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19酒店管理", "gz_hnzy_jjgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19旅游管理", "gz_hnzy_jjgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19市场营销", "gz_hnzy_jjgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19物流管理", "gz_hnzy_jjgl"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19安全技术与管理1班", "gz_hnzy_nygc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19安全技术与管理2班", "gz_hnzy_nygc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19安全技术与管理3班", "gz_hnzy_nygc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19安全技术与管理4班", "gz_hnzy_nygc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19测绘工程技术", "gz_hnzy_nygc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19城市轨道交通工程技术", "gz_hnzy_nygc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19城市轨道交通运营管理", "gz_hnzy_nygc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19矿井通风与安全1班", "gz_hnzy_nygc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19矿山地质", "gz_hnzy_nygc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19煤矿开采技术", "gz_hnzy_nygc"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19幼儿发展与健康教育", "gz_hnzy_rwjy"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19电力系统及自动化", "gz_hnzy_xxdq"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19电气自动化技术1班", "gz_hnzy_xxdq"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19电气自动化技术2班", "gz_hnzy_xxdq"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19电气自动化技术3班", "gz_hnzy_xxdq"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19工业机器人技术", "gz_hnzy_xxdq"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19计算机应用技术1班", "gz_hnzy_xxdq"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hnzy", "S19计算机应用技术2班", "gz_hnzy_xxdq"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Academy, "qingshu_hnzy", "医学院", "gz_hnzy_yxy"));
-
-
-
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_lnlgxy", "辽宁理工学院", "gz_lnlg_xy"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_hjgcxy", "供热K191,建电K191", "gz_lnjz_hjgc"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_jdgcxy", "机械K191,机械K192,机械K193,机械K194,机械K195,机械K196,机械K197,机械K198,自动化K191,自动化K192,自动化K193,自动化K194,自动化K195,自动化K196,自动化K197,自动化K198,自动化K199", "gz_lnjz_jdgc"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_jzjjxy", "造价K191,造价K1910,造价K192,造价K193,造价K194,造价K195,造价K196,造价K197,造价K198,造价K199", "gz_lnjz_jzjj"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_gsglxy", "物流K191,电商K191", "gz_lnjz_gsgl"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_xxgcxy", "大数据K191,网络K191,网络K1910,网络K1911,网络K1912,网络K1913,网络K192,网络K193,网络K194,网络K195,网络K196,网络K197,网络K198,网络K199", "gz_lnjz_xxgc"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_jzysxy", "室设K191,室设K192,室设K193,装饰K191", "gz_lnjz_jzys"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_gcglxy", "建管K191,建管K1910,建管K192,建管K193,建管K194,建管K195,建管K196,建管K197,建管K198,建管K199", "gz_lnjz_gcgl"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_cjglxy", "会计K191,会计K192,会计K193,会计K194,会计K195,会计K196,会计K197", "gz_lnjz_cjgl"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_jtgcxy", "道桥K191", "gz_lnjz_jtgc"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_tmgcxy", "建工K191,建工K1910,建工K1911,建工K192,建工K193,建工K194,建工K195,建工K196,建工K197,建工K198,建工K199,监理K191,监理K192,监理K193,监理K194,监理K195", "gz_lnjz_tmgc"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_qcgcxy", "新能源汽车K191,新能源汽车K192,新能源汽车K193,新能源汽车K194,新能源汽车K195,新能源汽车K196,新能源汽车K197", "gz_lnjz_qcgc"));
+*/
 
 
         duplicateFiles(schoolMaps);
-
 
         duplicateSyncUserSchoolFile();
     }
@@ -150,17 +90,25 @@ public class DuplicateSQL {
             schemaMap.put(schoolMap.getGzSchema(), schoolMap.getDgSchema());
         }
 
-        duplicateFile(schemaMap, syncBasicDataSqlFile);
-        duplicateFile(schemaMap, syncOtherDataSqlFile);
+        Map<String, String> gzSqlMap = new HashMap<>();
 
-        duplicateFile(schoolMaps, SchoolMap.SchoolMapType.College, syncMajorByCollegeFile);
-        duplicateFile(schoolMaps, SchoolMap.SchoolMapType.Academy, syncMajorByAcademyFile);
-        duplicateFile(schoolMaps, SchoolMap.SchoolMapType.Class, syncMajorByClassFile);
+        duplicateFile(schemaMap, syncBasicDataSqlFile, gzSqlMap);
+
+        duplicateFile(schoolMaps, SchoolMap.SchoolMapType.College, syncMajorByCollegeFile, gzSqlMap);
+        duplicateFile(schoolMaps, SchoolMap.SchoolMapType.Academy, syncMajorByAcademyFile, gzSqlMap);
+        duplicateFile(schoolMaps, SchoolMap.SchoolMapType.Class, syncMajorByClassFile, gzSqlMap);
+
+        duplicateFile(schemaMap, syncOtherDataSqlFile, gzSqlMap);
+
+        for (String gzSchema : gzSqlMap.keySet()) {
+            String saveFileName = gzSchema + ".sql";
+            writeFile(saveFileName, gzSqlMap.get(gzSchema));
+        }
     }
 
     private static void duplicateSyncUserSchoolFile() {
-        String[] symbols = "cqdxqczz,cqdxswgl,cqdxtmgc,cqdxtx,nycadwkx,nycanykx,nycaqcgc,nycarwys,nycasxy,nycaxxgc,hnzygcgl,hnzyjdgc,hnzyjjgl,hnzynygc,hnzyrwjy,hnzyxxdq,hnzyyxy,lnlggz".split(",");
-        String[] schemas = "gz_cqdx_qczz,gz_cqdx_swgl,gz_cqdx_tmgc,gz_cqdx_tx,gz_nyca_dwkx,gz_nyca_nykx,gz_nyca_qcgc,gz_nyca_rwys,gz_nyca_sxy,gz_nyca_xxgc,gz_hnzy_gcgl,gz_hnzy_jdgc,gz_hnzy_jjgl,gz_hnzy_nygc,gz_hnzy_rwjy,gz_hnzy_xxdq,gz_hnzy_yxy,gz_lnlg_xy".split(",");
+        String[] symbols = "aqzyahhg,aqzyhncykj,aqzysszd,aqzytcjh,aqzythzy,aqzywjwj,aqzyxy,aqzyyxdbs,ahndcf,ahndcy,ahndgddd,ahndgh,ahndhszy,ahndjd,ahndjx,ahndxcdx,ahndxy,ahndyqdx,ahndysdx,ahndyxdx,cysfgz,bbjjgz,hudazxgz,qlgggfw,qlgjdgc,qlgjjgl,qlgjzgc,qlgxxgc,lnjzhjgc,lnjzjdgc,lnjzjzjj,lnjzgsgl,lnjzxxgc,lnjzjzys,lnjzgcgl,lnjzcjgl,lnjzjtgc,lnjztmgc,lnjzqcgc".split(",");
+        String[] schemas = "gz_aqzy_ahhg,gz_aqzy_hncykj,gz_aqzy_sszd,gz_aqzy_tcjh,gz_aqzy_thzy,gz_aqzy_wjwj,gz_aqzy_xy,gz_aqzy_yxdbs,gz_ahnd_cf,gz_ahnd_cy,gz_ahnd_gddd,gz_ahnd_gh,gz_ahnd_hszy,gz_ahnd_jd,gz_ahnd_jx,gz_ahnd_xcdx,gz_ahnd_xy,gz_ahnd_yqdx,gz_ahnd_ysdx,gz_ahnd_yxdx,gz_cysf_xy,gz_bbjjzy,gz_huda_zx,gz_qlg_ggfw,gz_qlg_jdgc,gz_qlg_jjgl,gz_qlg_jzgc,gz_qlg_xxgc,gz_lnjz_hjgc,gz_lnjz_jdgc,gz_lnjz_jzjj,gz_lnjz_gsgl,gz_lnjz_xxgc,gz_lnjz_jzys,gz_lnjz_gcgl,gz_lnjz_cjgl,gz_lnjz_jtgc,gz_lnjz_tmgc,gz_lnjz_qcgc".split(",");
 
         String result = "set sql_safe_updates= 0;\n" +
                 "\n" +
@@ -188,10 +136,7 @@ public class DuplicateSQL {
         writeFile("sync_user_school_prod.sql", result);
     }
 
-    private static void duplicateFile(List<SchoolMap> schoolMaps, SchoolMap.SchoolMapType type, String file) {
-        String fileName = file.substring(file.lastIndexOf("\\") + 1);
-
-        Map<String, String> gzSqlMap = new HashMap<>();
+    private static void duplicateFile(List<SchoolMap> schoolMaps, SchoolMap.SchoolMapType type, String file, Map<String, String> gzSqlMap) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String thisLine;
             while ((thisLine = br.readLine()) != null) {
@@ -202,10 +147,13 @@ public class DuplicateSQL {
 
                     String tmpLine = thisLine.replaceAll("from_db", schoolMap.getDgSchema());
                     tmpLine = tmpLine.replaceAll("to_db", schoolMap.getGzSchema());
-                    tmpLine = tmpLine.replaceAll("in_center_name", schoolMap.getCenterName());
+                    if(type == SchoolMap.SchoolMapType.Class){
+                        tmpLine = tmpLine.replaceAll("in_center_names", wrapC(schoolMap.getCenterName()));
+                    }else{
+                        tmpLine = tmpLine.replaceAll("in_center_name", schoolMap.getCenterName());
+                    }
 
-                    String key = schoolMap.getGzSchema() + "_" + schoolMap.getCenterName();
-                    gzSqlMap.put(key, gzSqlMap.getOrDefault(key, "") + "\n" + tmpLine);
+                    gzSqlMap.put(schoolMap.getGzSchema(), gzSqlMap.getOrDefault(schoolMap.getGzSchema(), "") + "\n" + tmpLine);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -213,17 +161,17 @@ public class DuplicateSQL {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        for (String key : gzSqlMap.keySet()) {
-            String saveFileName = key + "__" + fileName;
-            writeFile(saveFileName, gzSqlMap.get(key));
-        }
     }
 
-    private static void duplicateFile(Map<String, String> schemaMap, String file) {
-        String fileName = file.substring(file.lastIndexOf("\\") + 1);
+    private static String wrapC(String centerName) {
+        String result= "'" + centerName + "'";
+        result = result.replaceAll(",", "', '");
+        return result;
+    }
 
-        Map<String, String> gzSqlMap = new HashMap<>();
+    private static void duplicateFile(Map<String, String> schemaMap, String file, Map<String, String> gzSqlMap) {
+        //String fileName = file.substring(file.lastIndexOf("\\") + 1);
+
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String thisLine;
             while ((thisLine = br.readLine()) != null) {
@@ -238,11 +186,6 @@ public class DuplicateSQL {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        for (String gzSchema : gzSqlMap.keySet()) {
-            String saveFileName = gzSchema + "__" + fileName;
-            writeFile(saveFileName, gzSqlMap.get(gzSchema));
         }
     }
 
