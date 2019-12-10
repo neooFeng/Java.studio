@@ -1,4 +1,4 @@
-package fengfei.studio.javacore;
+package fengfei.studio.javavm;
 
 
 // Run with -XX:+UnlockDiagnosticVMOptions -XX:+PrintBiasedLockingStatistics -XX:TieredStopAtLevel=1

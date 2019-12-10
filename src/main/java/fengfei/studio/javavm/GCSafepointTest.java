@@ -1,4 +1,4 @@
-package fengfei.studio.javacore;
+package fengfei.studio.javavm;
 
 public class GCSafepointTest {
     public static void main(String[] args) {

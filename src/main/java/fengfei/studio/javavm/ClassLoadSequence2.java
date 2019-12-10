@@ -1,4 +1,4 @@
-package fengfei.studio.javacore;
+package fengfei.studio.javavm;
 
 public class ClassLoadSequence2 {
     static {

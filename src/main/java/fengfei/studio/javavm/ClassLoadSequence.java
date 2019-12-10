@@ -1,4 +1,4 @@
-package fengfei.studio.javacore;
+package fengfei.studio.javavm;
 
 // 加载、链接（验证、准备、符号解析）、初始化
 

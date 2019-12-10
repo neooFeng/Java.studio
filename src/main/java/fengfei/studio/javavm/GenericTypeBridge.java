@@ -1,4 +1,4 @@
-package fengfei.studio.javacore;
+package fengfei.studio.javavm;
 
 class GenericTypeBridge extends GenericType<Integer> {
     @Override

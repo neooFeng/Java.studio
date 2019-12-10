@@ -1,7 +1,7 @@
-package fengfei.studio.javacore;
+package fengfei.studio.javavm;
 
-//$ javac fengfei/studio/javacore/Exception.java
-//$ javap -verbose fengfei/studio/javacore/Exception.class
+//$ javac fengfei/studio/javavm/Exception.java
+//$ javap -verbose fengfei/studio/javavm/Exception.class
 
 public class Exception {
     public static void main(String[] args) {
