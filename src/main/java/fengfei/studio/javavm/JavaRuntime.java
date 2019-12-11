@@ -1,4 +1,4 @@
-package fengfei.studio.test;
+package fengfei.studio.javavm;
 
 public class JavaRuntime {
     public static void main(String[] args) {

@@ -41,7 +41,7 @@ public class OKHttpClientRunnable implements Runnable {
 
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .connectTimeout(10, TimeUnit.SECONDS)
-                .pingInterval(10, TimeUnit.SECONDS)
+                .pingInterval(2, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .build();
 
@@ -54,8 +54,7 @@ public class OKHttpClientRunnable implements Runnable {
 
             @Override
             public void onMessage(okhttp3.WebSocket webSocket, String text) {
-                /*logger.info("onMessage");
-                logger.info(text);*/
+                /*logger.info(text);*/
             }
 
             @Override
@@ -65,10 +64,10 @@ public class OKHttpClientRunnable implements Runnable {
 
             @Override
             public void onFailure(okhttp3.WebSocket webSocket, Throwable t, Response response) {
-                logger.error("failure: " + Thread.currentThread().getId());
+                logger.error("failure: " + Thread.currentThread().getId() + " --- " + response.toString());
                 t.printStackTrace();
 
-                //connect();
+                connect();
             }
         });
 
