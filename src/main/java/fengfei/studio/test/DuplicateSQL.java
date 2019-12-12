@@ -78,10 +78,11 @@ public class DuplicateSQL {
         schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_qcgcxy", "新能源汽车K191,新能源汽车K192,新能源汽车K193,新能源汽车K194,新能源汽车K195,新能源汽车K196,新能源汽车K197", "gz_lnjz_qcgc"));
 */
 
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_ceshia", "自动化测试函授站", "gz_ceshia"));
 
         duplicateFiles(schoolMaps);
 
-        duplicateSyncUserSchoolFile();
+        //duplicateSyncUserSchoolFile();
     }
 
     private static void duplicateFiles(List<SchoolMap> schoolMaps) {
