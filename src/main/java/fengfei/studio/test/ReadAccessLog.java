@@ -22,7 +22,7 @@ public class ReadAccessLog {
     public static void main(String[] args){
         parseLogFile();
 
-        printResult(requestCountPerUser);
+        printResult(requestCountPerSec);
     }
 
     private static void parseLogFile() {
@@ -128,6 +128,7 @@ public class ReadAccessLog {
     private static void printResult(Map<String, Integer> requestCountMap) {
         List<String> keys = new ArrayList<>();
         keys.addAll(requestCountMap.keySet());
+        Collections.sort(keys);
         for (String key : keys){
             System.out.println(key + ", " + requestCountMap.get(key));
         }

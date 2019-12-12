@@ -1,4 +1,4 @@
-package fengfei.studio.test;
+package fengfei.studio.javavm;
 
 import com.carrotsearch.sizeof.RamUsageEstimator;
 import io.protostuff.LinkedBuffer;
