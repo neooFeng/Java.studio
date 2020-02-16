@@ -33,7 +33,7 @@ public class IMTest{
         int enterIntervalMs = config.getInt("enterIntervalMs");
         int memberCount = config.getInt("memberCount");
         for (int i=0; i< memberCount; i++){
-            Thread t = new Thread(new OKHttpClientRunnable(config));
+            Thread t = new Thread(new IMClientRunnable(config));
             t.start();
 
             try {

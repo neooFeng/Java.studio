@@ -73,9 +73,9 @@ public class IMClientRunnable implements Runnable {
         try {
             clientEndPoint.sendMessage(text);
             if (text.contains("MESSAGE")){
-                logger.debug("Thread: " + Thread.currentThread().getId() + ", send: " + this.sendCounter.incrementAndGet());
+                logger.info("Thread: " + Thread.currentThread().getId() + ", send: " + this.sendCounter.incrementAndGet());
             }else {
-                logger.debug("Thread: " + Thread.currentThread().getId() + " presence.");
+                logger.info("Thread: " + Thread.currentThread().getId() + " presence.");
             }
         } catch (IOException e) {
             e.printStackTrace();
