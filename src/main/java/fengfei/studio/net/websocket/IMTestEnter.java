@@ -6,6 +6,8 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IMTestEnter {
@@ -26,10 +28,12 @@ public class IMTestEnter {
      * @param args
      */
     public static void main(String[] args){
-           int enterIntervalMs = config.getInt("enterIntervalMs");
+       int enterIntervalMs = config.getInt("enterIntervalMs");
+
+        ExecutorService executorService = Executors.newCachedThreadPool();
+
         while (true){
-            Thread t = new Thread(new IMClientRunnable(config));
-            t.start();
+            executorService.execute(new IMClientRunnable(config));
 
             try {
                 Thread.sleep(enterIntervalMs);
