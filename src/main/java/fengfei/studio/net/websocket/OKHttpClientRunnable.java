@@ -48,7 +48,6 @@ public class OKHttpClientRunnable implements Runnable {
         client.newWebSocket(request, new WebSocketListener() {
             @Override
             public void onOpen(okhttp3.WebSocket webSocket, Response response) {
-                logger.error("new connect");
                 enterChatRoom(webSocket);
             }
 
@@ -78,14 +77,6 @@ public class OKHttpClientRunnable implements Runnable {
         String chatRoomAddr = this.config.getString("chatRoomAddr");
         String message = "{\"category\": \"PRESENCE\", \"to\": \"" + chatRoomAddr + "\"}";
 
-        clientEndPoint.send(message);
-    }
-
-    private void sendMessage(WebSocket clientEndPoint, String messageBody) {
-        String chatRoomAddr = this.config.getString("chatRoomAddr");
-        String message = "{\"category\": \"MESSAGE\", \"to\": \"" + chatRoomAddr + "\", \"type\": \"groupchat\",\"body\": {\"text\": \"" + messageBody + "\"}}";
-
-        logger.info("send message");
         clientEndPoint.send(message);
     }
 }

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class ReadAccessLog {
 
-    private final static String logPath = "C:\\Users\\fengfei\\Documents\\imsocket.2019-12-05.txt";
+    private final static String logPath = "C:\\Users\\fengfei\\Documents\\imsocket.2020-02-15.txt";
     static Map<String, Integer> requestCountPerMin = new HashMap<>();
     static Map<String, Integer> requestCountPerSec = new HashMap<>();
     static Map<Integer, Set<String>> requestDistinctUserPerMin = new HashMap<>();
@@ -112,8 +112,8 @@ public class ReadAccessLog {
     }
 
     private static Integer getTimeSection(String timeInMin) {
-        int hour = Integer.valueOf(timeInMin.substring("11/Oct/2019:".length(), "11/Oct/2019:".length() +2));
-        int min = Integer.valueOf(timeInMin.substring("11/Oct/2019:00:".length(), "11/Oct/2019:00:".length() +2));
+        int hour = Integer.valueOf(timeInMin.substring("15/Feb/2020:".length(), "15/Feb/2020:".length() +2));
+        int min = Integer.valueOf(timeInMin.substring("15/Feb/2020:00:".length(), "15/Feb/2020:00:".length() +2));
 
         int value = (hour-19) * 60 + min-25;
 
@@ -121,8 +121,8 @@ public class ReadAccessLog {
     }
 
     private static boolean timeOk(String timeInMin) {
-            return timeInMin.compareTo("05/Dec/2019:19:20:00") > 0
-                    && timeInMin.compareTo("05/Dec/2019:21:00:55") < 0;
+            return timeInMin.compareTo("15/Feb/2020:18:00:00") > 0
+                    && timeInMin.compareTo("15/Feb/2020:21:30:55") < 0;
     }
 
     private static void printResult(Map<String, Integer> requestCountMap) {
