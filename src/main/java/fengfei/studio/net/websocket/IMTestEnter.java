@@ -8,31 +8,26 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class IMTest{
-    private final static Logger logger = LoggerFactory.getLogger(IMTest.class);
+public class IMTestEnter {
+    private final static Logger logger = LoggerFactory.getLogger(IMTestEnter.class);
 
     private static Configuration config;
 
     static {
         try {
-            config = new PropertiesConfiguration("config.properties");
+            config = new PropertiesConfiguration("testenter.properties");
         } catch (ConfigurationException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * 测试聊天室加入性能，最好选用加入后能返回最近消息的聊天室
+     * @param args
+     */
     public static void main(String[] args){
-        // add sender
-        final AtomicInteger sendCounter = new AtomicInteger(0);
-        int senderCount = config.getInt("senderCount");
-        for (int i=0; i<senderCount; i++){
-            new Thread(new IMClientRunnable(sendCounter, config)).start();
-        }
-
-        // add more member
-        int enterIntervalMs = config.getInt("enterIntervalMs");
-        int memberCount = config.getInt("memberCount");
-        for (int i=0; i< memberCount; i++){
+           int enterIntervalMs = config.getInt("enterIntervalMs");
+        while (true){
             Thread t = new Thread(new IMClientRunnable(config));
             t.start();
 
@@ -41,14 +36,6 @@ public class IMTest{
             } catch (InterruptedException e) {
                 logger.error("", e);
             }
-        }
-
-        logger.error("allin.");
-
-        try {
-            Thread.sleep(3600 * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }

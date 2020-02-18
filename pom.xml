@@ -215,7 +215,7 @@
             <!-- MainClass in mainfest make a executable jar -->
             <archive>
               <manifest>
-                <mainClass>fengfei.studio.net.websocket.IMTest</mainClass>
+                <mainClass>fengfei.studio.net.websocket.IMTestSendRecv</mainClass>
               </manifest>
             </archive>
 

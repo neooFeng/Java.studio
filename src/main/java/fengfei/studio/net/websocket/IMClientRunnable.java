@@ -51,7 +51,13 @@ public class IMClientRunnable implements Runnable {
                 }
             }
 
-            Thread.sleep(3600 * 1000);
+            long stayAliveDurationMs = Integer.MAX_VALUE; // very long time
+            if (config.containsKey("stayAliveDurationMs")){
+                stayAliveDurationMs = config.getLong("stayAliveDurationMs");
+            }
+
+            Thread.sleep(stayAliveDurationMs);
+            // thread exit, connection will closed automatically.
         } catch (Exception e) {
             logger.error("", e);
         }
