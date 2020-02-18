@@ -1,78 +1,68 @@
 package fengfei.studio.javavm;
 
 import com.carrotsearch.sizeof.RamUsageEstimator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+import fengfei.studio.javavm.data.BigList;
+import fengfei.studio.javavm.data.BigObject;
+import io.netty.util.CharsetUtil;
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtostuffIOUtil;
 import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeEnv;
 import io.protostuff.runtime.RuntimeSchema;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 public class ProtostuffTest {
     public static void main(String[] args) {
-        List<TestObject> schoolMaps = new ArrayList<>(10);
-        for (int i = 0; i< 10; i++){
-            schoolMaps.add(new TestObject(500, 600));
-        }
+        BigList to = new BigList(100);
 
-        System.out.println(RamUsageEstimator.sizeOf(schoolMaps));
+        System.out.println(to.toJson());
+        System.out.println(to.toJson().getBytes(CharsetUtil.UTF_8).length);
 
-        double countedFinalScore = 0;
-        final String[] countedFinalScoreLevel = new String[1];
-
-        Schema<TestObject> s = RuntimeSchema.createFrom(TestObject.class, RuntimeEnv.ID_STRATEGY);
+        Schema<BigList> s = RuntimeSchema.createFrom(BigList.class, RuntimeEnv.ID_STRATEGY);
         LinkedBuffer buffer = LinkedBuffer.allocate(1024 * 1024);
         try {
             ByteArrayOutputStream b = new ByteArrayOutputStream();
-            ProtostuffIOUtil.writeListTo(b, schoolMaps, s, buffer);
-
+            ProtostuffIOUtil.writeTo(b, to, s, buffer);
             System.out.println(b.toByteArray().length);
+            b.reset();
+
+            b = new ByteArrayOutputStream();
+            GZIPOutputStream gzipOutputStream = new GZIPOutputStream(b);
+            gzipOutputStream.write(to.toJson().getBytes(CharsetUtil.UTF_8));
+            gzipOutputStream.flush();
+            gzipOutputStream.finish();
+            System.out.println(b.toByteArray().length);
+
+            GZIPInputStream inputStream = new GZIPInputStream(new ByteArrayInputStream(b.toByteArray()));
+
+            ByteArrayOutputStream outByte = new ByteArrayOutputStream();
+            byte[] bytes = new byte[1024];
+            int n;
+            while ( (n = inputStream.read(bytes, 0, bytes.length)) > 0){
+                outByte.write(bytes, 0, n);
+            }
+
+            System.out.println(outByte.toByteArray().length);
+
+            String str = new String(outByte.toByteArray(), StandardCharsets.UTF_8);
+            System.out.println(str);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             buffer.clear();
-        }
-    }
-
-
-    public static class TestObject {
-        private String name;
-
-        private Integer lowGrade;
-
-        private Integer highGrade;
-
-        public TestObject(int lowGrade, int highGrade){
-            this.lowGrade = lowGrade;
-            this.highGrade = highGrade;
-        }
-
-        public Integer getLowGrade() {
-            return lowGrade;
-        }
-
-        public void setLowGrade(Integer lowGrade) {
-            this.lowGrade = lowGrade;
-        }
-
-        public Integer getHighGrade() {
-            return highGrade;
-        }
-
-        public void setHighGrade(Integer highGrade) {
-            this.highGrade = highGrade;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
         }
     }
 }
