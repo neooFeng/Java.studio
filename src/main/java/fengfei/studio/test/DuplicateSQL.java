@@ -18,14 +18,8 @@ public class DuplicateSQL {
         List<SchoolMap> schoolMaps = new ArrayList<>();
 
 
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_bbjjzy", "扩19财会1班,扩19财会2班,扩19财会3班,扩19电商1班,扩19电商2班,扩19连锁,扩19物流1班,扩19物流2班,扩19营销1班,扩19营销2班,扩19营销3班,扩19营销4班,扩19营销5班", "gz_bbjjzy_cj"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_bbjjzy", "扩19城轨1班,扩19城轨2班,扩19高铁,扩19高铁空乘,扩19酒管,扩19旅游,扩19社区1班,扩19社区2班,扩19社区3班,扩19社区4班,扩19医学,扩19幼儿", "gz_bbjjzy_ggfw"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_bbjjzy", "本校,扩19计算机班,扩19计算机应用二班,扩19计算机应用三班,扩19计算机应用四班,扩19计算机应用五班,扩19计算机应用一班,扩19能源二班,扩19能源三班,扩19能源一班\n", "gz_bbjjzy_xxjs"));
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_bbjjzy", "扩19艺术设计班", "gz_bbjjzy_ys"));
-
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_hgszkz", "校本部", "gz_hgszkz_xy"));
-
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_gxjrxy", "null", "gz_gxjrxy_xy"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_peixian",
+                "px0001,px0039,px0041,px0048,px0115,px0130,px0140,px0141,px0166,px0205,px0207,px0217,px0230,px0234,px0247,px0304,px0326,px0332,px0340,px0419,px0460,px0461,px0467", "gz_peixian"));
 
 
         duplicateFiles(schoolMaps);
@@ -56,8 +50,8 @@ public class DuplicateSQL {
     }
 
     private static void duplicateSyncUserSchoolFile() {
-        String[] symbols = "bbjjzycj,bbjjzyggfw,bbjjzyxxjs,bbjjzyys,hgszkzxy,gxjrxyxy".split(",");
-        String[] schemas = "gz_bbjjzy_cj,gz_bbjjzy_ggfw,gz_bbjjzy_xxjs,gz_bbjjzy_ys,gz_hgszkz_xy,gz_gxjrxy_xy".split(",");
+        String[] symbols = "peixian".split(",");
+        String[] schemas = "qingshu_peixian".split(",");
 
         String result = "set sql_safe_updates= 0;\n" +
                 "DELETE FROM `tmp`.`user_school`;\n\n";
