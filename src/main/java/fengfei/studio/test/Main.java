@@ -1,16 +1,25 @@
 package fengfei.studio.test;
 
-import org.glassfish.grizzly.compression.zip.GZipEncoder;
+import org.apache.commons.lang3.RandomUtils;
 
-import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Random;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    private static final Random RANDOM = new Random();
 
-        try(CloseableResource cr = new CloseableResource()) {
-            System.out.println("hi.");
-        }
+    public static void main(String[] args) {
+       /* double cur = System.currentTimeMillis();
+        System.out.println(cur);
 
-        System.out.println("exit.");
+        System.out.println(System.currentTimeMillis());
+*/
+
+        String te = "lskdkdlsskd";
+        char[] chars = te.toCharArray();
+        chars[9] = 'a';
+
+        System.out.println(chars);
     }
 }
