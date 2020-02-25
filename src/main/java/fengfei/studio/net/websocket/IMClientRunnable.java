@@ -46,7 +46,7 @@ public class IMClientRunnable implements Runnable {
                 Thread.sleep(RandomUtils.nextInt(sendMessageIntervalMs));
 
                 while (true){
-                    sendMessage(clientEndPoint, "msg-" + Thread.currentThread().getName());
+                    sendMessage(clientEndPoint, "老师讲的真棒～～");
                     Thread.sleep(sendMessageIntervalMs);
                 }
             }

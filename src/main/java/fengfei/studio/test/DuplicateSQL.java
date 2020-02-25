@@ -7,12 +7,12 @@ import java.util.regex.Pattern;
 
 public class DuplicateSQL {
 
-    private final static String saveDir = "C:\\Users\\fengfei\\Desktop\\迁移\\prod\\";
-    private final static String syncBasicDataSqlFile = "C:\\Users\\fengfei\\Desktop\\迁移\\sync_basic_data.sql";
-    private final static String syncMajorByCollegeFile = "C:\\Users\\fengfei\\Desktop\\迁移\\sync_major_by_college.sql";
-    private final static String syncMajorByAcademyFile = "C:\\Users\\fengfei\\Desktop\\迁移\\sync_major_by_academy.sql";
-    private final static String syncMajorByClassFile = "C:\\Users\\fengfei\\Desktop\\迁移\\sync_major_by_class.sql";
-    private final static String syncOtherDataSqlFile = "C:\\Users\\fengfei\\Desktop\\迁移\\sync_other_data.sql";
+    private final static String saveDir = "/Users/teacher/Documents/迁移/prod/";
+    private final static String syncBasicDataSqlFile = "/Users/teacher/Documents/迁移/sync_basic_data.sql";
+    private final static String syncMajorByCollegeFile = "/Users/teacher/Documents/迁移/sync_major_by_college.sql";
+    private final static String syncMajorByAcademyFile = "/Users/teacher/Documents/迁移/sync_major_by_academy.sql";
+    private final static String syncMajorByClassFile = "/Users/teacher/Documents/迁移/sync_major_by_class.sql";
+    private final static String syncOtherDataSqlFile = "/Users/teacher/Documents/迁移/sync_other_data.sql";
 
     public static void main(String[] args) {
         List<SchoolMap> schoolMaps = new ArrayList<>();
