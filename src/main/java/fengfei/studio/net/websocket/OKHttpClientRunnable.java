@@ -25,8 +25,13 @@ public class OKHttpClientRunnable implements Runnable {
     public void run() {
         connect();
 
+        long stayAliveDurationMs = Integer.MAX_VALUE; // very long time
+        if (config.containsKey("stayAliveDurationMs")){
+            stayAliveDurationMs = config.getLong("stayAliveDurationMs");
+        }
+
         try {
-            Thread.sleep(3600 * 1000);
+            Thread.sleep(stayAliveDurationMs);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -41,7 +46,7 @@ public class OKHttpClientRunnable implements Runnable {
 
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .connectTimeout(10, TimeUnit.SECONDS)
-                .pingInterval(2, TimeUnit.SECONDS)
+                .pingInterval(10, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .build();
 
@@ -58,7 +63,7 @@ public class OKHttpClientRunnable implements Runnable {
 
             @Override
             public void onClosed(okhttp3.WebSocket webSocket, int code, String reason) {
-                logger.info("closed: " + reason);
+                logger.error("closed: " + reason);
             }
 
             @Override

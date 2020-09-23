@@ -122,7 +122,6 @@ public class InsertGZClassTask {
             XSSFWorkbook xssfWorkbook = new XSSFWorkbook(fis);
 
             XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
-
             Iterator<Row> rowIterator = sheet.rowIterator();
 
             while (rowIterator.hasNext()){

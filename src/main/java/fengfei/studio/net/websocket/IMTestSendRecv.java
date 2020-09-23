@@ -22,18 +22,11 @@ public class IMTestSendRecv {
     }
 
     public static void main(String[] args){
-        // add sender
-        final AtomicInteger sendCounter = new AtomicInteger(0);
-        int senderCount = config.getInt("senderCount");
-        for (int i=0; i<senderCount; i++){
-            new Thread(new IMClientRunnable(sendCounter, config)).start();
-        }
-
         // add more member
         int enterIntervalMs = config.getInt("enterIntervalMs");
         int memberCount = config.getInt("memberCount");
         for (int i=0; i< memberCount; i++){
-            Thread t = new Thread(new IMClientRunnable(config));
+            Thread t = new Thread(new OKHttpClientRunnable(config));
             t.start();
 
             try {
@@ -44,6 +37,15 @@ public class IMTestSendRecv {
         }
 
         logger.error("allin.");
+
+        // add sender
+        final AtomicInteger sendCounter = new AtomicInteger(0);
+        int senderCount = config.getInt("senderCount");
+        for (int i=0; i<senderCount; i++){
+            new Thread(new IMClientRunnable(sendCounter, config)).start();
+        }
+
+
 
         try {
             Thread.sleep(3600 * 1000);
