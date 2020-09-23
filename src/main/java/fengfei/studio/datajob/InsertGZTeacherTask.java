@@ -1,18 +1,14 @@
-package fengfei.studio.test;
+package fengfei.studio.datajob;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class InsertGZTeacherTask {

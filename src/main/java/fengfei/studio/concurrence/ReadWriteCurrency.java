@@ -1,44 +1,56 @@
 package fengfei.studio.concurrence;
 
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.concurrent.LinkedBlockingQueue;
+import org.apache.commons.lang.math.RandomUtils;
+
+import java.io.*;
 
 public class ReadWriteCurrency {
-    final static String filename = "/Users/teacher/a.txt";
+    final static String filename = "C:\\Users\\fengfei\\Desktop\\a3.txt";
 
-    public static void main(String[] args) throws InterruptedException {
-        Thread readThread = new Thread(new ReadRunable(filename));
-        Thread writeThread = new Thread(new WriteRunable(filename));
+    public static void main(String[] args) throws InterruptedException, IOException {
+        File file = new File(filename);
+
+        FileInputStream inputStream = new FileInputStream(file);
+        FileOutputStream outputStream = new FileOutputStream(file);
+
+        Thread readThread = new Thread(new ReadRunable(inputStream));
+        Thread writeThread = new Thread(new WriteRunable(outputStream));
 
         System.out.println("start");
 
-        readThread.start();
         writeThread.start();
+        Thread.sleep(10);
+        readThread.start();
 
         readThread.join();
         writeThread.join();
+
+        inputStream.close();
+        outputStream.close();
+
 
         System.out.println("exit.");
     }
 
     static class ReadRunable implements Runnable{
-        private String fileName;
+        private FileInputStream inputStream;
 
-        public ReadRunable(String fileName){
-            this.fileName = fileName;
+        public ReadRunable(FileInputStream inputStream){
+            this.inputStream = inputStream;
         }
 
         @Override
         public void run() {
-            try (FileReader fileReader = new FileReader(filename)) {
-                while (true){
-                    int c = fileReader.read();
-                    System.out.print((char)c);
+            try {
+                int i = 100000;
+                while (i-- > 0){
+                    int c = inputStream.read();
+                    System.out.println(c);
+                    Thread.sleep(1);
                 }
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             System.out.println("read end.");
@@ -46,29 +58,28 @@ public class ReadWriteCurrency {
     }
 
     static class WriteRunable implements Runnable{
-        private String fileName;
+        private FileOutputStream outputStream;
 
-        public WriteRunable(String fileName){
-            this.fileName = fileName;
+        public WriteRunable(FileOutputStream outputStream){
+            this.outputStream = outputStream;
         }
 
         @Override
         public void run() {
-            for (int i=0; i<1000; i++){
-                try (FileWriter fw = new FileWriter(fileName)) {
-                    String line = "t " + System.nanoTime();
-                    fw.write(line);
-                    System.out.println("write:  " + line);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
+            try {
+                int i = 100000;
+                while (i-- > 0){
+                    int d = RandomUtils.nextInt(50) + 48;
+                    outputStream.write(d);
+                    outputStream.flush();
+                    System.out.println("write:  " + d);
                     Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
         }
     }
 }

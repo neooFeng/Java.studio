@@ -1,12 +1,9 @@
-package fengfei.studio.test;
+package fengfei.studio.temp;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ReadIMApplicationLog {
 
