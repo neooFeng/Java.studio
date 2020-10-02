@@ -38,7 +38,7 @@ public final class DBUtil {
     }
 
 
-    private static DataSource getDataSource(String url, String catalog, String userName, String password){
+    public static DataSource getDataSource(String url, String catalog, String userName, String password){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl(url);

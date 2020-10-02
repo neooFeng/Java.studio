@@ -15,14 +15,19 @@ public class Tmp {
         String[] symbols = new String[]{"jssnua", "jssnub", "jssnuc", "jssnud", "jssnue", "jssnuf", "jssnug", "jssnuh", "jssnui", "jssnuj", "jssnuk",
                 "jssnul", "jssnum", "jssnun", "jssnuo"};
 
-        String fileName = "/Users/teacher/Documents/gz_live_2020-02-25.xlsx";
+        String fileName = "/Users/teacher/Documents/gz_live_2020-03-22.xlsx";
 
         countLiveTeacherCount(symbols, fileName);
     }
 
     private static void countLiveTeacherCount(String[] symbolList, String fileName) {
-        int studentCount = 0;
-        int studentStudySecs = 0;
+        int teacherCount = 0;
+        int lessonCount = 0;
+        int liveStudentCount = 0;
+        int allStudentCount = 0;
+        int totalViewTimes = 0;
+        int totalViewDuration = 0;
+
 
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook();
         XSSFSheet sheet = xssfWorkbook.createSheet();
@@ -33,7 +38,7 @@ public class Tmp {
 
                 JdbcTemplate template = DBUtil.getSchoolTemplate(schoolId);
 
-                List<Map<String, Object>> result = template.queryForList(
+                /*List<Map<String, Object>> result = template.queryForList(
                         "SELECT s.year, m.name as major, c.name as className, lc.name as liveClass, t.display_name as teacher, ll.name as lesson, ll.begin_time as beginTime, ll.status FROM live_class lc\n" +
                         "inner join liveclass_class lcc on lc.id = lcc.live_class_id\n" +
                         "inner join class c on c.id = lcc.class_id\n" +
@@ -62,15 +67,34 @@ public class Tmp {
                             row.createCell(column++).setCellValue(String.valueOf(dbRow.get(key)));
                         }
                     }
-                }
+                }*/
 
-                studentCount += template.queryForObject("SELECT count(distinct student_id) FROM course_study_record csr\n" +
-                        "where csr.type = 3 and csr.start_time > '2020-02-25';", Integer.class);
+                Integer tempTeacherCount = template.queryForObject("select count(distinct lc.teacher_id) from live_lesson ls \n" +
+                        "inner join live_class lc on ls.live_class_id = lc.id\n" +
+                        "inner join liveclass_class lcc on lc.id = lcc.live_class_id \n" +
+                        "inner join class c on lcc.class_id = c.id\n" +
+                        "where ls.status != 0 and c.name not like '%督导%';", Integer.class);
+                teacherCount += tempTeacherCount==null ? 0 : tempTeacherCount;
 
-                Integer tempDuration = template.queryForObject("SELECT SUM(TIME_TO_SEC(timediff(csr.end_time, csr.start_time))) FROM course_study_record csr\n" +
-                        "where csr.type = 3 and csr.start_time > '2020-02-25';", Integer.class);
+                Integer tempLessonCount = template.queryForObject("select count(distinct ls.id) from live_lesson ls \n" +
+                        "inner join live_class lc on ls.live_class_id = lc.id\n" +
+                        "inner join liveclass_class lcc on lc.id = lcc.live_class_id \n" +
+                        "inner join class c on lcc.class_id = c.id\n" +
+                        "where ls.status != 0 and c.name not like '%督导%';", Integer.class);
+                lessonCount += tempLessonCount==null ? 0 : tempLessonCount;
 
-                studentStudySecs += tempDuration==null ? 0 : tempDuration;
+                Integer templiveStudentCount = template.queryForObject("select count(distinct student_id) from course_study_record where type = 4;", Integer.class);
+                liveStudentCount += templiveStudentCount==null ? 0 : templiveStudentCount;
+
+                Integer tempallStudentCount = template.queryForObject("select count(distinct student_id) from course_study_record where type in (3,4);", Integer.class);
+                allStudentCount += tempallStudentCount==null ? 0 : tempallStudentCount;
+
+                Integer temptotalViewTimes = template.queryForObject("select count(*) from course_study_record where type in (3,4);", Integer.class);
+                totalViewTimes += temptotalViewTimes==null ? 0 : temptotalViewTimes;
+
+                Float tmptotalViewDuration = template.queryForObject("SELECT SUM(TIME_TO_SEC(timediff(csr.end_time, csr.start_time))) / 3600  FROM course_study_record csr\n" +
+                        "where csr.type in (3,4);", Float.class);
+                totalViewDuration += tmptotalViewDuration==null ? 0 : tmptotalViewDuration;
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -78,13 +102,17 @@ public class Tmp {
             }
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream(fileName)){
+       /* try (FileOutputStream fileOut = new FileOutputStream(fileName)){
             xssfWorkbook.write(fileOut);
         }catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
-        System.out.println("学生: " + studentCount);
-        System.out.println("学生观看: " + studentStudySecs + ", " + studentStudySecs / 3600  + ":" + (studentStudySecs % 3600) / 60 + ":" + (studentStudySecs%60));
+        System.out.println("teacherCount: " + teacherCount);
+        System.out.println("lessonCount: " + lessonCount);
+        System.out.println("liveStudentCount: " + liveStudentCount);
+        System.out.println("allStudentCount: " + allStudentCount);
+        System.out.println("totalViewTimes: " + totalViewTimes);
+        System.out.println("totalViewDuration: " + totalViewDuration);
     }
 }
