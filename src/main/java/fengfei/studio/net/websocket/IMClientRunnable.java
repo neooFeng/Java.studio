@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IMClientRunnable implements Runnable {
@@ -65,13 +66,13 @@ public class IMClientRunnable implements Runnable {
 
     private void enterChatRoom(WebsocketClientEndpoint clientEndPoint) {
         String chatRoomAddr = this.config.getString("chatRoomAddr");
-        String message = "{\"category\": \"PRESENCE\", \"to\": \"" + chatRoomAddr + "\"}";
+        String message = "{\"id\": \"" + UUID.randomUUID().toString() + "\", \"category\": \"PRESENCE\", \"to\": \"" + chatRoomAddr + "\"}";
         sendText(clientEndPoint, message);
     }
 
     private void sendMessage(WebsocketClientEndpoint clientEndPoint, String messageBody) {
         String chatRoomAddr = this.config.getString("chatRoomAddr");
-        String message = "{\"category\": \"MESSAGE\", \"to\": \"" + chatRoomAddr + "\", \"type\": \"groupchat\",\"body\": {\"text\": \"" + messageBody + "\"}}";
+        String message = "{\"id\": \"" + UUID.randomUUID().toString() + "\", \"category\": \"MESSAGE\", \"to\": \"" + chatRoomAddr + "\", \"type\": \"groupchat\",\"body\": {\"text\": \"" + messageBody + "\"}}";
         sendText(clientEndPoint, message);
     }
 

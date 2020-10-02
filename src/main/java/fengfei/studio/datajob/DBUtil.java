@@ -1,9 +1,7 @@
-package fengfei.studio.test;
+package fengfei.studio.datajob;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
-import sun.security.krb5.internal.PAData;
 
 import javax.sql.DataSource;
 import java.util.Map;
