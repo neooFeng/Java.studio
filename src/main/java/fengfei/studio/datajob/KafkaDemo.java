@@ -1,4 +1,4 @@
-package fengfei.studio.test;
+package fengfei.studio.datajob;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;

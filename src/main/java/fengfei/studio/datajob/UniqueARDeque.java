@@ -1,4 +1,4 @@
-package fengfei.studio.test;
+package fengfei.studio.datajob;
 
 import java.util.HashSet;
 import java.util.Set;

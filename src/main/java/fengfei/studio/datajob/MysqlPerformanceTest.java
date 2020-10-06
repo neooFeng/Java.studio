@@ -1,5 +1,6 @@
-package fengfei.studio.test;
+package fengfei.studio.datajob;
 
+import fengfei.studio.datajob.DBUtil;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class MysqlPerformanceTest {
