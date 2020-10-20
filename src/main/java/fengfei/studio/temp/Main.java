@@ -2,17 +2,23 @@ package fengfei.studio.temp;
 
 public class Main {
     public static void main(String[] args) {
+        Integer integer = null;
 
-        Integer a = 1000;
-        Integer b = 2000;
 
-        swap(a,b);
+        if (null == integer){
+            System.out.println("ok2");
+        }
 
-        System.out.println(a + "  " + b);
-    }
 
-    private static void swap(Integer a, Integer b) {
-        a = 1;
-        b= 1;
+        if (1 == integer){
+            System.out.println("ok");
+        }else{
+            System.out.println("ok");
+        }
+
+        if (integer != 1){
+            System.out.println("ok2");
+        }
+
     }
 }
