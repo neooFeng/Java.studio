@@ -16,26 +16,13 @@ public class InsertGZTeacherTask {
         String filePath = "/Users/teacher/Downloads/江苏二师范老师信息（给封飞）1.xlsx";
 
         Map<String, Integer> schoolMap = new HashMap<>();
-        schoolMap.put("城市与资源环境学院", 4104);
-        schoolMap.put("教育科学学院", 4105);
-        schoolMap.put("经济与法政学院", 4106);
-        schoolMap.put("马克思主义学院", 4107);
-        schoolMap.put("美术学院", 4108);
-        schoolMap.put("生命科学与化学化工学院", 4109);
-        schoolMap.put("数学与信息技术学院", 4110);
-        schoolMap.put("体育学院", 4111);
-        schoolMap.put("外国语学院", 4112);
-        schoolMap.put("文学院", 4113);
-        schoolMap.put("物理与电子工程学院", 4114);
-        schoolMap.put("现代传媒学院", 4115);
-        schoolMap.put("学前教育学院", 4116);
-        schoolMap.put("音乐学院", 4117);
-
-        schoolMap.put("测试学院", 4118);
+        schoolMap.put("安庆职业技术学院", 3949);
+        schoolMap.put("太湖职业技术学院", 3947);
+        schoolMap.put("桐城市江淮工业学校", 3946);
 
 
-        Collection<Teacher> teachers = getFromExcel(filePath);
-        //Collection<Teacher> teachers = genTeachersToInsert(schoolMap);
+        //Collection<Teacher> teachers = getFromExcel(filePath);
+        Collection<Teacher> teachers = genTeachersToInsert(schoolMap);
         for(Teacher teacher : teachers){
             /*Integer userId = getUserId(teacher.getUserName());
             if (userId != null){
@@ -50,15 +37,7 @@ public class InsertGZTeacherTask {
                 userId = insertGlobalUser(teacher);
             }*/
 
-            Integer userId;
-            if (teacher.getUserName().equals("jssnu12201916")
-                || teacher.getUserName().equals("jssnu12201537")
-                || teacher.getUserName().equals("jssnu11199605")
-                || teacher.getUserName().equals("jssnu11201518") ){
-                userId = getUserId(teacher.getUserName());
-            }else{
-                userId = insertGlobalUser(teacher);
-            }
+            Integer userId = insertGlobalUser(teacher);
 
             if (userId == null){
                 System.out.println("insert global user failed. " + teacher.getUserName());
@@ -70,7 +49,7 @@ public class InsertGZTeacherTask {
                 schoolIds.add(schoolMap.get(schoolName));
             }
 
-            List<Integer> teacherModules = new ArrayList<>();
+            /*List<Integer> teacherModules = new ArrayList<>();
             teacherModules.add(200);
             teacherModules.add(208);
             teacherModules.add(240);
@@ -81,13 +60,13 @@ public class InsertGZTeacherTask {
             teacherModules.add(531);
             teacherModules.add(223);
             teacherModules.add(504);
-            teacherModules.add(533);
+            teacherModules.add(533);*/
 
             for (Integer schoolId : schoolIds){
                 System.out.println("insert school: " + schoolId + ", userId: " + userId);
                 insertUserSchool(userId, schoolId, 2);
 
-                //List<Integer> teacherModules = getTeacherModules(schoolId);
+                List<Integer> teacherModules = getTeacherModules(schoolId);
                 insertTeacherToSchool(schoolId, userId, teacherModules);
             }
         }
@@ -257,15 +236,13 @@ public class InsertGZTeacherTask {
     private static Collection<Teacher> genTeachersToInsert(Map<String, Integer> schoolMap) {
         List<Teacher> result = new ArrayList<>();
 
-        for (int i=1; i<7; i++){
-            Teacher teacher = new Teacher();
-            teacher.setUserName("ahjz00" + i);
-            teacher.setPassword("123456");
-            teacher.setDisplayName("管理员" + i);
-            teacher.setSchools(schoolMap.keySet());
+        Teacher teacher = new Teacher();
+        teacher.setUserName("6022010028");
+        teacher.setPassword("123456");
+        teacher.setDisplayName("李进恩");
+        teacher.setSchools(schoolMap.keySet());
 
-            result.add(teacher);
-        }
+        result.add(teacher);
         return result;
 
     }
