@@ -5,24 +5,31 @@ import java.util.*;
 
 public class DuplicateSQL {
 
-    private final static String saveDir = "/Users/teacher/Documents/迁移/prod/";
-    private final static String syncBasicDataSqlFile = "/Users/teacher/Documents/迁移/sync_basic_data.sql";
-    private final static String syncMajorByCollegeFile = "/Users/teacher/Documents/迁移/sync_major_by_college.sql";
-    private final static String syncMajorByAcademyFile = "/Users/teacher/Documents/迁移/sync_major_by_academy.sql";
-    private final static String syncMajorByClassFile = "/Users/teacher/Documents/迁移/sync_major_by_class.sql";
-    private final static String syncOtherDataSqlFile = "/Users/teacher/Documents/迁移/sync_other_data.sql";
+    private final static String saveDir = "C:\\Users\\fengfei\\Desktop\\迁移\\prod\\";
+    private final static String syncBasicDataSqlFile = "C:\\Users\\fengfei\\Desktop\\迁移\\sync_basic_data.sql";
+    private final static String syncMajorByCollegeFile = "C:\\Users\\fengfei\\Desktop\\迁移\\sync_major_by_college.sql";
+    private final static String syncMajorByAcademyFile = "C:\\Users\\fengfei\\Desktop\\迁移\\sync_major_by_academy.sql";
+    private final static String syncMajorByClassFile = "C:\\Users\\fengfei\\Desktop\\迁移\\sync_major_by_class.sql";
+    private final static String syncOtherDataSqlFile = "C:\\Users\\fengfei\\Desktop\\迁移\\sync_other_data.sql";
 
     public static void main(String[] args) {
         List<SchoolMap> schoolMaps = new ArrayList<>();
 
 
-        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.Class, "qingshu_peixian",
-                "px0001,px0039,px0041,px0048,px0115,px0130,px0140,px0141,px0166,px0205,px0207,px0217,px0230,px0234,px0247,px0304,px0326,px0332,px0340,px0419,px0460,px0461,px0467", "gz_peixian"));
-
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_wczy",
+                "武昌职业学院(本部）", "gz_wczydzxx"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_wczy",
+                "武昌职业学院(本部）", "gz_wczyjdgc"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_wczy",
+                "武昌职业学院(本部）", "gz_wczyjzys"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_wczy",
+                "武昌职业学院(本部）", "gz_wczyqcgc"));
+        schoolMaps.add(new SchoolMap(SchoolMap.SchoolMapType.College, "qingshu_wczy",
+                "武昌职业学院(本部）", "gz_wczysxy"));
 
         duplicateFiles(schoolMaps);
 
-        duplicateSyncUserSchoolFile();
+       // duplicateSyncUserSchoolFile();
     }
 
     private static void duplicateFiles(List<SchoolMap> schoolMaps) {
@@ -48,7 +55,7 @@ public class DuplicateSQL {
     }
 
     private static void duplicateSyncUserSchoolFile() {
-        String[] symbols = "peixian".split(",");
+        String[] symbols = "wczyjdgc".split(",");
         String[] schemas = "qingshu_peixian".split(",");
 
         String result = "set sql_safe_updates= 0;\n" +
