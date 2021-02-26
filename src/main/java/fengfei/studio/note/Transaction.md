@@ -1,6 +1,0 @@
-# Transaction
-
-## ACID
-
-## FAST
-
