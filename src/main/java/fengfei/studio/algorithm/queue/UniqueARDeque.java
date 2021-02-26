@@ -1,4 +1,6 @@
-package fengfei.studio.datajob;
+package fengfei.studio.algorithm.queue;
+
+import fengfei.studio.algorithm.queue.ARDeque;
 
 import java.util.HashSet;
 import java.util.Set;

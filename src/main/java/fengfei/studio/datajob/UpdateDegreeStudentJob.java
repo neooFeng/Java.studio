@@ -42,16 +42,15 @@ public class UpdateDegreeStudentJob {
         System.out.println(sb);
     }
 
-    private static Map<String, Integer> getFromSchool() {
-        Map<String, Integer> resultMap = new HashMap<>();
-
-        JdbcTemplate schoolTemplate = DBUtil.getSchoolTemplate(4027);
-        List<Map<String, Object>> studentMapList = schoolTemplate.queryForList("SELECT candidate_number, global_user_id FROM student;");
+    private static void setSchoolMajors(int schoolId, Map<Integer, String> majorIdToNameMap, Map<String, Integer> majorNameToIdMap) {
+        JdbcTemplate schoolTemplate = DBUtil.getSchoolTemplate(schoolId);
+        List<Map<String, Object>> studentMapList = schoolTemplate.queryForList("SELECT id, `name`, `level` FROM major;");
         for (Map<String, Object> studentMap : studentMapList) {
-            resultMap.put(studentMap.get("candidate_number").toString(), Integer.valueOf(studentMap.get("global_user_id").toString()));
+            int majorId = Integer.valueOf(studentMap.get("id").toString());
+            String nameLevel = studentMap.get("name") + "_" + studentMap.get("level");
+            majorIdToNameMap.put(majorId, nameLevel);
+            majorNameToIdMap.put(nameLevel, majorId);
         }
-
-        return resultMap;
     }
 
     private static List<Student> parseExcel(String filePath) {
@@ -62,40 +61,24 @@ public class UpdateDegreeStudentJob {
 
             XSSFWorkbook xssfWorkbook = new XSSFWorkbook(fis);
 
-            XSSFSheet sheet = xssfWorkbook.getSheetAt(1);
+            XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.rowIterator();
 
-            while (rowIterator.hasNext()){
+            while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
-                if(row.getRowNum() < 1){
+                if (row.getRowNum() < 1) {
                     continue;
                 }
 
                 Student student = new Student();
 
-                Cell cell0 = row.getCell(0);
-                cell0.setCellType(CellType.STRING);
-                student.setCandidateNumber(cell0.getStringCellValue());
+                Cell cell1 = row.getCell(0);
+                cell1.setCellType(CellType.STRING);
+                student.setStudentNumber(cell1.getStringCellValue());
 
-                student.setGender(row.getCell(3).getStringCellValue());
-
-                Cell cell4 = row.getCell(4);
-                cell4.setCellType(CellType.STRING);
-                String dateStr = cell4.getStringCellValue();
-
-                int year = Integer.parseInt(dateStr.substring(0, 4));
-                int month = Integer.parseInt(dateStr.substring(5,6));
-                int day = Integer.parseInt(dateStr.substring(7,8));
-                Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-                calendar.set(year, month, day);
-                student.setBirthday(calendar.getTime());
-
-                Cell cell5 = row.getCell(5);
-                cell5.setCellType(CellType.STRING);
-                student.setIdentityCard(cell5.getStringCellValue());
-
-                student.setPolitics(row.getCell(6).getStringCellValue());
-                student.setNationnality(row.getCell(7).getStringCellValue());
+                Cell cell2 = row.getCell(1);
+                cell2.setCellType(CellType.STRING);
+                student.setCandidateNumber(cell2.getStringCellValue());
 
                 students.add(student);
             }
@@ -112,10 +95,12 @@ public class UpdateDegreeStudentJob {
         private int globalUserId;
         private String globalUsername;
         private String identityCard;
-        private Date birthday;
-        private String gender;
-        private String politics;
-        private String nationnality;
+        private String candidateNumber;
+        private int centerId;
+        private String centerName;
+        private int majorId;
+        private String majorName;
+        private String majorLevel;
 
         public int getId() {
             return id;
@@ -125,20 +110,20 @@ public class UpdateDegreeStudentJob {
             this.id = id;
         }
 
-        public String getCandidateNumber() {
-            return candidateNumber;
+        public String getGlobalUserName() {
+            return globalUserName;
         }
 
-        public void setCandidateNumber(String candidateNumber) {
-            this.candidateNumber = candidateNumber;
+        public void setGlobalUserName(String globalUserName) {
+            this.globalUserName = globalUserName;
         }
 
-        public int getGlobalUserId() {
-            return globalUserId;
+        public String getDisplayName() {
+            return displayName;
         }
 
-        public void setGlobalUserId(int globalUserId) {
-            this.globalUserId = globalUserId;
+        public void setDisplayName(String displayName) {
+            this.displayName = displayName;
         }
 
         public String getGlobalUsername() {
@@ -157,36 +142,60 @@ public class UpdateDegreeStudentJob {
             this.identityCard = identityCard;
         }
 
-        public Date getBirthday() {
-            return birthday;
+        public String getCandidateNumber() {
+            return candidateNumber;
         }
 
-        public void setBirthday(Date birthday) {
-            this.birthday = birthday;
+        public void setCandidateNumber(String candidateNumber) {
+            this.candidateNumber = candidateNumber;
         }
 
-        public String getGender() {
-            return gender;
+        public int getCenterId() {
+            return centerId;
         }
 
-        public void setGender(String gender) {
-            this.gender = gender;
+        public void setCenterId(int centerId) {
+            this.centerId = centerId;
         }
 
-        public String getPolitics() {
-            return politics;
+        public int getMajorId() {
+            return majorId;
         }
 
-        public void setPolitics(String politics) {
-            this.politics = politics;
+        public void setMajorId(int majorId) {
+            this.majorId = majorId;
         }
 
-        public String getNationnality() {
-            return nationnality;
+        public String getStudentNumber() {
+            return studentNumber;
         }
 
-        public void setNationnality(String nationnality) {
-            this.nationnality = nationnality;
+        public void setStudentNumber(String studentNumber) {
+            this.studentNumber = studentNumber;
+        }
+
+        public String getCenterName() {
+            return centerName;
+        }
+
+        public void setCenterName(String centerName) {
+            this.centerName = centerName;
+        }
+
+        public String getMajorName() {
+            return majorName;
+        }
+
+        public void setMajorName(String majorName) {
+            this.majorName = majorName;
+        }
+
+        public String getMajorLevel() {
+            return majorLevel;
+        }
+
+        public void setMajorLevel(String majorLevel) {
+            this.majorLevel = majorLevel;
         }
     }
 }

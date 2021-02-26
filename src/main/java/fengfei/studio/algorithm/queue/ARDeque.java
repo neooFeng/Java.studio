@@ -1,4 +1,4 @@
-package fengfei.studio.datajob;
+package fengfei.studio.algorithm.queue;
 
 import java.util.*;
 import java.util.function.Consumer;
