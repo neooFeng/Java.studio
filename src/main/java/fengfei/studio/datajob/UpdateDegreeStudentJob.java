@@ -14,78 +14,112 @@ import java.util.*;
 
 public class UpdateDegreeStudentJob {
 
-    private final static Map<Integer, String> schoolMajorMap = new HashMap<>();
-    private final static Map<String, Integer> politicsMap = new HashMap<>();
-    private final static Map<String, Integer> nationnalityMap = new HashMap<>();
-    static {
-        schoolMajorMap.put(8, "电子商务（社）");
-        schoolMajorMap.put(9, "机电一体化技术（社）");
-        schoolMajorMap.put(10, "计算机网络技术（社）");
-        schoolMajorMap.put(11, "建设工程管理（社）");
-        schoolMajorMap.put(12, "汽车检测与维修技术（社）");
-        schoolMajorMap.put(13, "软件技术（社）");
-        schoolMajorMap.put(14, "电子信息工程技术（社）");
 
-        politicsMap.put("中共党员", 1);
-        politicsMap.put("中共预备党员", 2);
-        politicsMap.put("共青团员", 3);
-        politicsMap.put("群众", 13);
-
-        nationnalityMap.put("汉族", 1);
-        nationnalityMap.put("土家族", 15);
-    }
 
     public static void main(String[] args) {
-        String filePath = "C:\\Users\\fengfei\\Downloads\\wczy.xlsx";
 
-        List<Student> studentList = parseExcel(filePath);
+        Map<Integer, String> schoolFileMap = new HashMap<>();
+        schoolFileMap.put(4386, "C:\\Users\\fengfei\\Desktop\\学生学号更换及对应学籍照片编号.xlsx");
 
-        Map<String, Integer> studentMap = getFromSchool();
-
-        addGlobalUserId(studentList, studentMap);
-
-        updateGlobalUser(studentList);
-
-        updateSchoolUser(studentList);
+        for (Map.Entry<Integer, String> entry : schoolFileMap.entrySet()){
+            process(entry.getKey(), entry.getValue());
+        }
     }
 
-    private static void updateSchoolUser(List<Student> studentList) {
-        List<Object[]> args = new ArrayList<>();
-        for (Student student: studentList){
-            args.add(new Object[]{student.getGender(), student.getIdentityCard(),
-                    nationnalityMap.get(student.getNationnality()), politicsMap.get(student.getPolitics()), student.getBirthday(), student.getGlobalUserId()});
-        }
+    private static void process(int schoolId, String filePath) {
+        List<Student> targetStudents = parseExcel(filePath);
 
-        JdbcTemplate schoolTemplate = DBUtil.getSchoolTemplate(4027);
-        schoolTemplate.batchUpdate("update student set `gender` = ?, identity_card = ?, nationality_id = ?, politics_status_id = ?, birthday = ? where global_user_id = ?;", args);
+    /*    StringBuilder stringBuilder = new StringBuilder();
+        for (Student student : targetStudents){
+            stringBuilder.append("").append(student.getGlobalUserName()).append("").append(",");
+        }*/
+
+      /*
+
+       Map<Integer, String> centerIdToNameMap = new HashMap<>();
+        Map<String, Integer> centerNameToIdMap = new HashMap<>();
+        Map<Integer, String> majorIdToNameMap = new HashMap<>();
+        Map<String, Integer> majorNameToIdMap = new HashMap<>();
+
+
+        setSchoolCenters(schoolId, centerIdToNameMap, centerNameToIdMap);
+        setSchoolMajors(schoolId, majorIdToNameMap, majorNameToIdMap);
+
+        for (Student student : targetStudents){
+            Integer centerId = centerNameToIdMap.get(student.getCenterName());
+            Integer majorId = majorNameToIdMap.get(student.getMajorName() + "_" + student.getMajorLevel());
+
+            if (centerId == null || majorId == null){
+                System.out.println(student.getCenterName());
+                System.out.println(student.getMajorName() + "_" + student.getMajorLevel());
+            }
+
+            student.setCenterId(centerId);
+            student.setMajorId(majorId);
+        }*/
+
+        //updateGlobalUser(targetStudents);
+
+        updateStudent(schoolId, targetStudents);
     }
 
     private static void updateGlobalUser(List<Student> studentList) {
         List<Object[]> args = new ArrayList<>();
         for (Student student: studentList){
-            args.add(new Object[]{student.getGender(), student.getIdentityCard(),
-                    nationnalityMap.get(student.getNationnality()), politicsMap.get(student.getPolitics()), student.getGlobalUserId()});
+            args.add(new Object[]{student.getDisplayName(), student.getGlobalUserName()});
         }
-        DBUtil.getGlobalTemplate().batchUpdate("update global_user set `gender` = ?, identity_card = ?, " +
-                "nationality_id = ?, politics_status_id = ? where id = ?;", args);
+
+        JdbcTemplate schoolTemplate = DBUtil.getGlobalTemplate();
+        schoolTemplate.batchUpdate("update `global_user` set `display_name` = ? where `user_name` = ?;", args);
     }
 
-    private static void addGlobalUserId(List<Student> studentList, Map<String, Integer> studentMap) {
-        for (Student student : studentList){
-            student.setGlobalUserId(studentMap.get(student.getCandidateNumber()));
-        }
-    }
+    private static List<Student> getStudent(int schoolId) {
+        List<Student> students = new ArrayList<>();
 
-    private static Map<String, Integer> getFromSchool() {
-        Map<String, Integer> resultMap = new HashMap<>();
-
-        JdbcTemplate schoolTemplate = DBUtil.getSchoolTemplate(4027);
-        List<Map<String, Object>> studentMapList = schoolTemplate.queryForList("SELECT candidate_number, global_user_id FROM student;");
+        JdbcTemplate schoolTemplate = DBUtil.getSchoolTemplate(schoolId);
+        List<Map<String, Object>> studentMapList = schoolTemplate.queryForList("SELECT id, `student_number`, `global_user_name` FROM `student`;");
         for (Map<String, Object> studentMap : studentMapList) {
-            resultMap.put(studentMap.get("candidate_number").toString(), Integer.valueOf(studentMap.get("global_user_id").toString()));
+            Student student = new Student();
+            student.setId(Integer.valueOf(studentMap.get("id").toString()));
+            student.setStudentNumber(studentMap.get("student_number").toString());
+            student.setGlobalUserName(studentMap.get("global_user_name").toString());
+
+            students.add(student);
         }
 
-        return resultMap;
+        return students;
+    }
+
+    private static void updateStudent(int schoolId, List<Student> studentList) {
+        List<Object[]> args = new ArrayList<>();
+        for (Student student: studentList){
+            args.add(new Object[]{student.getStudentNumber(), student.getCandidateNumber()});
+        }
+
+        JdbcTemplate schoolTemplate = DBUtil.getSchoolTemplate(schoolId);
+        schoolTemplate.batchUpdate("update `student` set `student_number` = ? where `candidate_number` = ?", args);
+    }
+
+    private static void setSchoolCenters(int schoolId, Map<Integer, String> centerIdToNameMap, Map<String, Integer> centerNameToIdMap) {
+        JdbcTemplate schoolTemplate = DBUtil.getSchoolTemplate(schoolId);
+        List<Map<String, Object>> centerList = schoolTemplate.queryForList("SELECT id, `name` FROM `center`;");
+        for (Map<String, Object> centerMap : centerList) {
+            int centerId = Integer.valueOf(centerMap.get("id").toString());
+            String name = centerMap.get("name").toString();
+            centerIdToNameMap.put(centerId, name);
+            centerNameToIdMap.put(name, centerId);
+        }
+    }
+
+    private static void setSchoolMajors(int schoolId, Map<Integer, String> majorIdToNameMap, Map<String, Integer> majorNameToIdMap) {
+        JdbcTemplate schoolTemplate = DBUtil.getSchoolTemplate(schoolId);
+        List<Map<String, Object>> studentMapList = schoolTemplate.queryForList("SELECT id, `name`, `level` FROM major;");
+        for (Map<String, Object> studentMap : studentMapList) {
+            int majorId = Integer.valueOf(studentMap.get("id").toString());
+            String nameLevel = studentMap.get("name") + "_" + studentMap.get("level");
+            majorIdToNameMap.put(majorId, nameLevel);
+            majorNameToIdMap.put(nameLevel, majorId);
+        }
     }
 
     private static List<Student> parseExcel(String filePath) {
@@ -96,40 +130,24 @@ public class UpdateDegreeStudentJob {
 
             XSSFWorkbook xssfWorkbook = new XSSFWorkbook(fis);
 
-            XSSFSheet sheet = xssfWorkbook.getSheetAt(1);
+            XSSFSheet sheet = xssfWorkbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.rowIterator();
 
-            while (rowIterator.hasNext()){
+            while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
-                if(row.getRowNum() < 1){
+                if (row.getRowNum() < 1) {
                     continue;
                 }
 
                 Student student = new Student();
 
-                Cell cell0 = row.getCell(0);
-                cell0.setCellType(CellType.STRING);
-                student.setCandidateNumber(cell0.getStringCellValue());
+                Cell cell1 = row.getCell(0);
+                cell1.setCellType(CellType.STRING);
+                student.setStudentNumber(cell1.getStringCellValue());
 
-                student.setGender(row.getCell(3).getStringCellValue());
-
-                Cell cell4 = row.getCell(4);
-                cell4.setCellType(CellType.STRING);
-                String dateStr = cell4.getStringCellValue();
-
-                int year = Integer.parseInt(dateStr.substring(0, 4));
-                int month = Integer.parseInt(dateStr.substring(5,6));
-                int day = Integer.parseInt(dateStr.substring(7,8));
-                Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-                calendar.set(year, month, day);
-                student.setBirthday(calendar.getTime());
-
-                Cell cell5 = row.getCell(5);
-                cell5.setCellType(CellType.STRING);
-                student.setIdentityCard(cell5.getStringCellValue());
-
-                student.setPolitics(row.getCell(6).getStringCellValue());
-                student.setNationnality(row.getCell(7).getStringCellValue());
+                Cell cell2 = row.getCell(1);
+                cell2.setCellType(CellType.STRING);
+                student.setCandidateNumber(cell2.getStringCellValue());
 
                 students.add(student);
             }
@@ -141,28 +159,40 @@ public class UpdateDegreeStudentJob {
     }
 
     private static class Student {
-        private String candidateNumber;
-        private int globalUserId;
+        private int id;
+        private String globalUserName;
+        private String studentNumber;
+        private String displayName;
         private String identityCard;
-        private Date birthday;
-        private String gender;
-        private String politics;
-        private String nationnality;
+        private String candidateNumber;
+        private int centerId;
+        private String centerName;
+        private int majorId;
+        private String majorName;
+        private String majorLevel;
 
-        public String getCandidateNumber() {
-            return candidateNumber;
+        public int getId() {
+            return id;
         }
 
-        public void setCandidateNumber(String candidateNumber) {
-            this.candidateNumber = candidateNumber;
+        public void setId(int id) {
+            this.id = id;
         }
 
-        public int getGlobalUserId() {
-            return globalUserId;
+        public String getGlobalUserName() {
+            return globalUserName;
         }
 
-        public void setGlobalUserId(int globalUserId) {
-            this.globalUserId = globalUserId;
+        public void setGlobalUserName(String globalUserName) {
+            this.globalUserName = globalUserName;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+
+        public void setDisplayName(String displayName) {
+            this.displayName = displayName;
         }
 
         public String getIdentityCard() {
@@ -173,36 +203,60 @@ public class UpdateDegreeStudentJob {
             this.identityCard = identityCard;
         }
 
-        public Date getBirthday() {
-            return birthday;
+        public String getCandidateNumber() {
+            return candidateNumber;
         }
 
-        public void setBirthday(Date birthday) {
-            this.birthday = birthday;
+        public void setCandidateNumber(String candidateNumber) {
+            this.candidateNumber = candidateNumber;
         }
 
-        public String getGender() {
-            return gender;
+        public int getCenterId() {
+            return centerId;
         }
 
-        public void setGender(String gender) {
-            this.gender = gender;
+        public void setCenterId(int centerId) {
+            this.centerId = centerId;
         }
 
-        public String getPolitics() {
-            return politics;
+        public int getMajorId() {
+            return majorId;
         }
 
-        public void setPolitics(String politics) {
-            this.politics = politics;
+        public void setMajorId(int majorId) {
+            this.majorId = majorId;
         }
 
-        public String getNationnality() {
-            return nationnality;
+        public String getStudentNumber() {
+            return studentNumber;
         }
 
-        public void setNationnality(String nationnality) {
-            this.nationnality = nationnality;
+        public void setStudentNumber(String studentNumber) {
+            this.studentNumber = studentNumber;
+        }
+
+        public String getCenterName() {
+            return centerName;
+        }
+
+        public void setCenterName(String centerName) {
+            this.centerName = centerName;
+        }
+
+        public String getMajorName() {
+            return majorName;
+        }
+
+        public void setMajorName(String majorName) {
+            this.majorName = majorName;
+        }
+
+        public String getMajorLevel() {
+            return majorLevel;
+        }
+
+        public void setMajorLevel(String majorLevel) {
+            this.majorLevel = majorLevel;
         }
     }
 }
