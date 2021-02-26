@@ -3,6 +3,15 @@
 - What is the difference between Primary Key and Unique Key?  
 Answer : Both Primary and Unique Key is implemented for Uniqueness of the column. Primary Key creates a clustered index of column where as an Unique creates unclustered index of column. Moreover, Primary Key doesn’t allow NULL value, however Unique Key does allows one NULL value.
 
+- 一条search语句是如何执行的
+
+- 一条update语句是如何执行的
+
+- redo log & binlog
+
+- MVCC是如何实现的
+
+- InnoDB 索引模型
 
 - 加锁情况分析  
 `student
@@ -48,8 +57,45 @@ nation varchar(10),
 * 优化 2：索引上的等值查询，向右遍历时且最后一个值不满足等值条件的时候，next-key lock 退化为间隙锁。
 * 一个 bug：唯一索引上的范围查询会访问到不满足条件的第一个值为止。
 
+- explain每一列的含义
+
 
 - 为什么要避免join，什么情况下做join是可以的
 
+- order by是怎么工作的
+
+- group by是怎么工作的
+
+- mysql kill不掉的语句
 
 - mysql服务器值得关注的性能指标
+
+
+- 
+SELECT query, exec_count, total_latency, max_latency FROM sys.statements_with_runtimes_in_95th_percentile;
+
+SELECT LEFT(DIGEST_TEXT, 64) AS DIGEST_TEXT, COUNT_STAR, SUM_TIMER_WAIT, MAX_TIMER_WAIT
+FROM performance_schema.events_statements_summary_by_digest
+ORDER BY MAX_TIMER_WAIT DESC
+LIMIT 10;
+
+SELECT *
+FROM sys.metrics
+WHERE Variable_name IN ('log_lsn_current', 'log_lsn_last_checkpoint');
+
+- mysql常用优化设置
+innodb_buffer_pool_size
+innodb_buffer_pool_instances
+
+innodb_log_file_size
+innodb_log_files_in_group
+
+innodb_file_per_table
+
+innodb_thread_concurrency
+max_connections
+table_open_cache
+query_cache_type
+mysql_reset_connection
+innodb_flush_log_at_trx_commit
+sync_binlog
